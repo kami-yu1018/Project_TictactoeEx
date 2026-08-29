@@ -12,7 +12,7 @@ void Game::Update()
 
 void Game::Render()
 {
-	for (int j = 0; j < 7; ++j)
+	/*for (int j = 0; j < 7; ++j)
 	{
 		for (int i = 0; i < 7; ++i)
 		{
@@ -22,7 +22,7 @@ void Game::Render()
 			int y2 = y1 + (700 / 7);
 			DrawBox(x1, y1, x2, y2, GetColor(255, 255, 255), FALSE);
 		}
-	}
+	}*/
 
 }
 
