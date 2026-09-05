@@ -2,28 +2,51 @@
 
 void Game::Init()
 {
-	
+	//	初期化
+	RuleObj.Init();
+	ResultObj.Init();
+
+	//	最初のシーンはタイトルから
 }
 
 void Game::Update()
 {
+	if (nowScene == SCENE_TITLE)
+	{
 
+	}
+	if (nowScene == SCENE_GAME)
+	{
+
+	}
+	if (nowScene == SCENE_RULE)
+	{
+		RuleObj.Update();
+	}
+	if (nowScene == SCENE_RESULT)
+	{
+		ResultObj.Update();
+	}
 }
 
 void Game::Render()
 {
-	/*for (int j = 0; j < 7; ++j)
+	if (nowScene == SCENE_TITLE)
 	{
-		for (int i = 0; i < 7; ++i)
-		{
-			int x1 = 50 + (700/7) * (i);
-			int y1 = 100 + (700 / 7) * (j);
-			int x2 = x1 + (700 / 7);
-			int y2 = y1 + (700 / 7);
-			DrawBox(x1, y1, x2, y2, GetColor(255, 255, 255), FALSE);
-		}
-	}*/
-	
+
+	}
+	if (nowScene == SCENE_GAME)
+	{
+
+	}
+	if (nowScene == SCENE_RULE)
+	{
+		RuleObj.Render();
+	}
+	if (nowScene == SCENE_RESULT)
+	{
+		ResultObj.Render(gameResult);
+	}
 }
 
 void Game::Exit()
