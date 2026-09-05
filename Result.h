@@ -9,7 +9,7 @@ private:
 	int resultImage[2];	// 勝敗画像のハンドル
 
 public:
-	int nextscene;	//	次のシーンを示す変数（0:タイトル画面、1:ゲーム画面）
+	int nextscene;	//	次のシーンを示す変数（1:タイトル画面、2:ゲーム画面）
 
 	void Init();	//	初期化
 	void Update();	//	更新
