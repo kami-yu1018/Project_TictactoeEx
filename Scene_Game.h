@@ -7,8 +7,11 @@ public:
 
 	//　盤面の状態を保持する配列
 	int board[7][7] = { 0 };
+	int draw_board[7][7] = { 0 };
 
 	int board_size = 3;
+
+	bool player_turn = true;
 
 	//　マウス座標
 	int mouse_pos_x;
