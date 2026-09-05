@@ -4,7 +4,9 @@
 
 class Game
 {
-	
+private:
+	//	インスタンス
+	Scene_Rule RuleObj;
 
 public:
 	void Init();
