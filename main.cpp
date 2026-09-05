@@ -1,5 +1,7 @@
 #include "main.h"
 
+int mouseFrame_left;
+int mouseFrame_right;
 //------------------------------------------------------------------------------
 //	WinMain
 //------------------------------------------------------------------------------
@@ -57,6 +59,27 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		game_obj.Update();
 		game_obj.Render();
 
+		//	マウスが押されたらカウント用変数を増やす
+		if (CheckMouseInput(MOUSE_INPUT_LEFT))
+		{
+			mouseFrame_left++;
+		}
+		else
+		{
+			mouseFrame_left = 0;
+		}
+
+		if (CheckMouseInput(MOUSE_INPUT_RIGHT))
+		{
+			mouseFrame_right++;
+		}
+		
+		
+		else
+		{
+			mouseFrame_right=0;
+		}
+
 
 		//	リフレッシュレートが一定になるまで待つ処理
 		while (clock() < check_fps) {}
@@ -80,4 +103,61 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	//	ソフトの終了
 	return 0;
+}
+
+
+/// <summary>
+/// マウスが押されているかどうかを判定し取得
+/// </summary>
+/// <param name="button"></param>
+/// <returns></returns>
+bool CheckMouseInput(int button)
+{
+	if (GetMouseInput() & button)
+	{
+		return true;
+	}
+	return false;
+}
+
+/// <summary>
+/// マウスが押された瞬間を取得
+/// </summary>
+/// <param name="button"></param>
+/// <returns></returns>
+bool PushMouseInput(int button)
+{
+	if (button & MOUSE_INPUT_LEFT)
+	{
+		if (mouseFrame_left == 1)
+		{
+			return true;
+		}
+	}
+	if (button & MOUSE_INPUT_RIGHT)
+	{
+		if (mouseFrame_right == 1)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+
+/// <summary>
+///	マウス座標の取得
+/// </summary>
+/// <returns></returns>
+int GetMouseX()
+{
+	int mouseX, mouseY;
+	GetMousePoint(&mouseX, &mouseY);
+	return mouseX;
+}
+int GetMouseY()
+{
+	int mouseX, mouseY;
+	GetMousePoint(&mouseX, &mouseY);
+	return mouseY;
 }
