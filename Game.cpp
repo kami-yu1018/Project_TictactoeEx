@@ -2,7 +2,7 @@
 
 void Game::Init()
 {
-
+	
 }
 
 void Game::Update()
@@ -23,7 +23,7 @@ void Game::Render()
 			DrawBox(x1, y1, x2, y2, GetColor(255, 255, 255), FALSE);
 		}
 	}*/
-
+	
 }
 
 void Game::Exit()
