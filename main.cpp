@@ -33,8 +33,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	Game game_obj;
+	Scene_Game scene_game_obj;
 
 	game_obj.Init();
+	scene_game_obj.Init();
 
 	//===============================================
 	//	ゲームループ
@@ -56,6 +58,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		game_obj.Update();
 		game_obj.Render();
+
+		scene_game_obj.Update();
+		scene_game_obj.Render();
 
 
 		//	リフレッシュレートが一定になるまで待つ処理
