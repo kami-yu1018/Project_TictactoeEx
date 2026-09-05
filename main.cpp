@@ -21,7 +21,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetMainWindowText(TEXT("Test"));
 
 	//	”wŒiF‚Ìİ’è
-	SetBackgroundColor(0, 0, 0);
+	SetBackgroundColor(255, 255, 255);
 
 	//	‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»ˆ—
 	if (DxLib_Init() == -1)
