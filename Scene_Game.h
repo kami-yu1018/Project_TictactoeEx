@@ -26,6 +26,12 @@ public:
 	//　記号を置いた数をカウント
 	int count = 0;
 
+private:
+
+	int CheckWin();
+
+public:
+
 	void Init();
 	void Update();
 	void Render();
