@@ -68,7 +68,7 @@ void Scene_Game::Update()
 	}
 
 	//　マウスの長押し入力の防止
-	if (mouse_input == true)
+	if (mouse_input & MOUSE_INPUT_LEFT)
 	{
 		key_state = true;
 	}
