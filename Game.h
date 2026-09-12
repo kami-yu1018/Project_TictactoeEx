@@ -18,21 +18,12 @@ class Game
 
 	Scene nowScene;	//	現在のシーン
 
-	int backScene = 0;	//	前のシーンを入れておく変数（ルール画面からタイトル、ゲーム画面に戻る時に使う）
+	int backScene = 0;	//	前のシーンを入れておく変数（ルール画面からタイトル、ゲーム画面に戻る時に使う　１：タイトル　２：ゲーム）
 	int gameResult = 0;	//	勝敗
 
-private:
-	// 現在表示する画面だけを管理する。ゲーム画面は本体実装まで仮表示する。
-	enum Scene
-	{
-		SCENE_TITLE,
-		SCENE_GAME,
-		SCENE_RULE,
-	};
-	Scene nowScene = SCENE_TITLE;
 	bool exitRequested = false; // main に正常終了を依頼するフラグ。
-	Scene_Title TitleObj;
 	//	インスタンス
+	Scene_Title TitleObj;
 	Scene_Rule RuleObj;
 	Result ResultObj;
 
