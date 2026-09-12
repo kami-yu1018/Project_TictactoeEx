@@ -20,7 +20,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetGraphMode(WINDOW_W, WINDOW_H, 32);
 
 	//	ウィンドウのタイトル
-	SetMainWindowText(TEXT("Test"));
+	SetMainWindowText(TEXT("○×ゲーム"));
 
 	//	背景色の設定
 	SetBackgroundColor(0, 0, 0);
@@ -57,6 +57,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		ClearDrawScreen();
 
 		game_obj.Update();
+		// 終了メニューの要求を受けたら、共通の終了処理へ進む。
+		if (game_obj.IsExitRequested())
+		{
+			break;
+		}
 		game_obj.Render();
 
 		//	マウスが押されたらカウント用変数を増やす
@@ -90,7 +95,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//	ループを抜ける
 		if (CheckHitKey(KEY_INPUT_ESCAPE))
 		{
-			return 0;
+			// Escape でも画像解放と DxLib_End を通る。
+			break;
 		}
 	}
 
@@ -99,6 +105,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//===============================================
 
 	//	ＤＸライブラリ使用の終了処理
+	// ウィンドウを閉じた場合も含め、DxLib の終了前に画面のリソースを解放する。
+	game_obj.Exit();
 	DxLib_End();
 
 	//	ソフトの終了
