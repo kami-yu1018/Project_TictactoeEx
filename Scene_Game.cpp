@@ -31,7 +31,63 @@ int Scene_Game::CheckWin()
 		win_count = 5;
 	}
 
+	int directions[4][2] =
+	{
+		{1, 0},
+		{0, 1},
+		{1, 1},
+		{1, -1},
+	};
 
+	for (int y = 0; y < board_size; y++)
+	{
+		for (int x = 0; x < board_size; x++)
+		{
+			//　何もないマスは処理しない
+			if (draw_board[y][x] == 0)	continue;
+
+			// 現在の記号
+			int player = draw_board[y][x];
+
+			// 4方向を調べる
+			for (int d = 0; d < 4; d++)
+			{
+				int line_count = 1;
+
+				// 次のマスを調べる
+				for (int n = 1; n < win_count; n++)
+				{
+					int next_x = x + directions[d][0] * n;
+					int next_y = y + directions[d][1] * n;
+
+					// 盤面の外なら終了
+					if (next_x < 0 || next_x >= board_size ||
+						next_y < 0 || next_y >= board_size)
+					{
+						break;
+					}
+
+					// 同じ記号なら連続数を増やす
+					if (draw_board[next_y][next_x] == player)
+					{
+						line_count++;
+					}
+					else
+					{
+						break;
+					}
+				}
+
+				// 必要な数が並んでいたら勝利
+				if (line_count >= win_count)
+				{
+					return player;
+				}
+			}
+		}
+	}
+
+	return 0;
 }
 
 //　更新処理
@@ -107,6 +163,20 @@ void Scene_Game::Update()
 				}
 			}
 		}
+	}
+
+	//　勝利判定
+	int winner = CheckWin();
+
+	if (winner == 1)
+	{
+		// ○の勝利
+		DrawString(340, 800, "〇の勝利", GetColor(255, 255, 255));
+	}
+	else if (winner == 2)
+	{
+		// ×の勝利
+		DrawString(340, 800, "×の勝利", GetColor(255, 255, 255));
 	}
 
 	//　プレイヤーのターンを交互に切り替える
