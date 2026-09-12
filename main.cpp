@@ -8,63 +8,65 @@ int mouseFrame_right;
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	//===============================================
-	//	����������
+	//	初期化処理
 	//===============================================
-	//	���O�̏����o���𖳌���
+	//	ログの書き出しを無効化
 	SetOutApplicationLogValidFlag(FALSE);
 
-	//	�E�B���h�E���[�h�̐ݒ�
+	//	ウィンドウモードの設定
 	ChangeWindowMode(TRUE);
 
-	//	�E�B���h�E�T�C�Y�ƃJ���[�r�b�g�̐ݒ�
+	//	ウィンドウサイズとカラービットの設定
 	SetGraphMode(WINDOW_W, WINDOW_H, 32);
 
-	//	�E�B���h�E�̃^�C�g��
-	SetMainWindowText(TEXT("���~�Q�[��"));
+	//	ウィンドウのタイトル
+	SetMainWindowText(TEXT("○×ゲーム"));
 
-	//	�w�i�F�̐ݒ�
+	//	背景色の設定
 	SetBackgroundColor(0, 0, 0);
 
-	//	�c�w���C�u�����̏���������
+	//	ＤＸライブラリの初期化処理
 	if (DxLib_Init() == -1)
 	{
-		return -1;		//	�G���[���N�����璼���ɏI��
+		return -1;		//	エラーが起きたら直ちに終了
 	}
 
-	//	�E�B���h�E�`�惂�[�h�ݒ�
+	//	ウィンドウ描画モード設定
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	Game game_obj;
+	Scene_Game scene_game_obj;
 
 	game_obj.Init();
+	scene_game_obj.Init();
 
 	//===============================================
-	//	�Q�[�����[�v
+	//	ゲームループ
 	//===============================================
 	while (ProcessMessage() == 0)
 	{
 
-		//	���t���b�V�����[�g��ݒ肷�邽�߂̏���
+		//	リフレッシュレートを設定するための処理
 		clock_t check_fps = clock() + CLOCKS_PER_SEC / 60;
 
-		//	�}�E�X�J�[�\���\���ݒ�
+		//	マウスカーソル表示設定
 		SetMouseDispFlag(TRUE);
 
-		//	printfDx�̏�����
+		//	printfDxの初期化
 		clsDx();
 
-		//	��ʏ�̕`���������
+		//	画面上の描画を初期化
 		ClearDrawScreen();
 
 		game_obj.Update();
-		// �I�����j���[�̗v�����󂯂���A���ʂ̏I�������֐i�ށB
+		// 終了メニューの要求を受けたら、共通の終了処理へ進む。
 		if (game_obj.IsExitRequested())
 		{
 			break;
 		}
 		game_obj.Render();
 
-		//	�}�E�X�������ꂽ��J�E���g�p�ϐ��𑝂₷
+		//	マウスが押されたらカウント用変数を増やす
 		if (CheckMouseInput(MOUSE_INPUT_LEFT))
 		{
 			mouseFrame_left++;
@@ -86,36 +88,36 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		}
 
 
-		//	���t���b�V�����[�g�����ɂȂ�܂ő҂���
+		//	リフレッシュレートが一定になるまで待つ処理
 		while (clock() < check_fps) {}
 
-		//	����ʂ̕`���\�ɔ��f
+		//	裏画面の描画を表に反映
 		ScreenFlip();
 
-		//	���[�v�𔲂���
+		//	ループを抜ける
 		if (CheckHitKey(KEY_INPUT_ESCAPE))
 		{
-			// Escape �ł��摜����� DxLib_End ��ʂ�B
+			// Escape でも画像解放と DxLib_End を通る。
 			break;
 		}
 	}
 
 	//===============================================
-	//	�I������
+	//	終了処理
 	//===============================================
 
-	//	�c�w���C�u�����g�p�̏I������
-	// �E�B���h�E������ꍇ���܂߁ADxLib �̏I���O�ɉ�ʂ̃��\�[�X���������B
+	//	ＤＸライブラリ使用の終了処理
+	// ウィンドウを閉じた場合も含め、DxLib の終了前に画面のリソースを解放する。
 	game_obj.Exit();
 	DxLib_End();
 
-	//	�\�t�g�̏I��
+	//	ソフトの終了
 	return 0;
 }
 
 
 /// <summary>
-/// �}�E�X��������Ă��邩�ǂ����𔻒肵�擾
+/// マウスが押されているかどうかを判定し取得
 /// </summary>
 /// <param name="button"></param>
 /// <returns></returns>
@@ -129,7 +131,7 @@ bool CheckMouseInput(int button)
 }
 
 /// <summary>
-/// �}�E�X�������ꂽ�u�Ԃ��擾
+/// マウスが押された瞬間を取得
 /// </summary>
 /// <param name="button"></param>
 /// <returns></returns>
@@ -154,7 +156,7 @@ bool PushMouseInput(int button)
 
 
 /// <summary>
-///	�}�E�X���W�̎擾
+///	マウス座標の取得
 /// </summary>
 /// <returns></returns>
 int GetMouseX()

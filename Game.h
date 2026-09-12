@@ -16,13 +16,13 @@ class Game
 		SCENE_RESULT,
 	};
 
-	Scene nowScene;	//	Œ»İ‚ÌƒV[ƒ“
+	Scene nowScene;	//	ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³
 
-	int backScene = 0;	//	‘O‚ÌƒV[ƒ“‚ğ“ü‚ê‚Ä‚¨‚­•Ï”iƒ‹[ƒ‹‰æ–Ê‚©‚çƒ^ƒCƒgƒ‹AƒQ[ƒ€‰æ–Ê‚É–ß‚é‚Ég‚¤@‚PFƒ^ƒCƒgƒ‹@‚QFƒQ[ƒ€j
-	int gameResult = 0;	//	Ÿ”s
+	int backScene = 0;	//	å‰ã®ã‚·ãƒ¼ãƒ³ã‚’å…¥ã‚Œã¦ãŠãå¤‰æ•°ï¼ˆãƒ«ãƒ¼ãƒ«ç”»é¢ã‹ã‚‰ã‚¿ã‚¤ãƒˆãƒ«ã€ã‚²ãƒ¼ãƒ ç”»é¢ã«æˆ»ã‚‹æ™‚ã«ä½¿ã†ã€€ï¼‘ï¼šã‚¿ã‚¤ãƒˆãƒ«ã€€ï¼’ï¼šã‚²ãƒ¼ãƒ ï¼‰
+	int gameResult = 0;	//	å‹æ•—
 
-	bool exitRequested = false; // main ‚É³íI—¹‚ğˆË—Š‚·‚éƒtƒ‰ƒOB
-	//	ƒCƒ“ƒXƒ^ƒ“ƒX
+	bool exitRequested = false; // main ã«æ­£å¸¸çµ‚äº†ã‚’ä¾é ¼ã™ã‚‹ãƒ•ãƒ©ã‚°ã€‚
+	//	ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	Scene_Title TitleObj;
 	Scene_Rule RuleObj;
 	Result ResultObj;
@@ -33,6 +33,6 @@ public:
 	void Render();
 	void Exit();
 
-	// true ‚Ìê‡Amain ‚ªƒ‹[ƒv‚ğ”²‚¯‚ÄI—¹ˆ—‚ğs‚¤B
+	// true ã®å ´åˆã€main ãŒãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã¦çµ‚äº†å‡¦ç†ã‚’è¡Œã†ã€‚
 	bool IsExitRequested() const;
 };
