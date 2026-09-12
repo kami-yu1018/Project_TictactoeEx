@@ -24,7 +24,11 @@ void Scene_Game::Update()
 
 	//　盤面のサイズを更新
 	//　盤面が埋まったら
-	if (count >= 9 && count < 25)
+	if (count < 9)
+	{
+		board_size = 3;
+	}
+	else if (count >= 9 && count < 25)
 	{
 		//　盤面のサイズを大きくする
 		board_size = 5;
@@ -46,8 +50,6 @@ void Scene_Game::Update()
 		{
 			//　マークを置く
 			MarkPlace(board_x, board_y);
-			//　プレイヤー交代
-			player_turn = !player_turn;
 		}
 	}
 
@@ -133,6 +135,12 @@ void Scene_Game::Exit()
 // --------------------------------------
 bool Scene_Game::MarkPlace(int x, int y)
 {
+	//　すでに記号が置かれているなら
+	if (draw_player[y][x] != 0)
+	{
+		return false;
+	}
+
 	//　○のターン
 	if (player_turn == true)
 	{
@@ -146,6 +154,9 @@ bool Scene_Game::MarkPlace(int x, int y)
 
 	//　置いた数を増やす
 	count++;
+
+	//　プレイヤー交代
+	player_turn = !player_turn;
 
 	return true;
 }
@@ -246,7 +257,7 @@ bool Scene_Game::GetBoardCell(int mouse_pos_x, int mouse_pos_y, int* board_x, in
 	int cell_size = 700 / board_size;
 			
 	//マウスが盤面の範囲の中にあるか
-	if (mouse_pos_x < 50 && mouse_pos_x >= 750 && mouse_pos_y < 100 && mouse_pos_y >= 800)
+	if (mouse_pos_x < 50 || mouse_pos_x >= 750 || mouse_pos_y < 100 || mouse_pos_y >= 800)
 	{
 		return false;
 	}
