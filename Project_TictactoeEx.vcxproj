@@ -133,6 +133,7 @@
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="Scene_Rule.cpp" />
     <ClCompile Include="Scene_Title.cpp" />
+    <ClCompile Include="Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -141,6 +142,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="Scene_Game.h" />
     <ClInclude Include="Scene_Rule.h" />
+    <ClInclude Include="Sound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

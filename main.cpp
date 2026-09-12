@@ -1,35 +1,37 @@
 #include "main.h"
 
+int mouseFrame_left;
+int mouseFrame_right;
 //------------------------------------------------------------------------------
 //	WinMain
 //------------------------------------------------------------------------------
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	//===============================================
-	//	‰Šú‰»ˆ—
+	//	åˆæœŸåŒ–å‡¦ç†
 	//===============================================
-	//	ƒƒO‚Ì‘‚«o‚µ‚ğ–³Œø‰»
+	//	ãƒ­ã‚°ã®æ›¸ãå‡ºã—ã‚’ç„¡åŠ¹åŒ–
 	SetOutApplicationLogValidFlag(FALSE);
 
-	//	ƒEƒBƒ“ƒhƒEƒ‚[ƒh‚Ìİ’è
+	//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®è¨­å®š
 	ChangeWindowMode(TRUE);
 
-	//	ƒEƒBƒ“ƒhƒEƒTƒCƒY‚ÆƒJƒ‰[ƒrƒbƒg‚Ìİ’è
+	//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã¨ã‚«ãƒ©ãƒ¼ãƒ“ãƒƒãƒˆã®è¨­å®š
 	SetGraphMode(WINDOW_W, WINDOW_H, 32);
 
-	//	ƒEƒBƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹
-	SetMainWindowText(TEXT("Test"));
+	//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ«
+	SetMainWindowText(TEXT("â—‹Ã—ã‚²ãƒ¼ãƒ "));
 
-	//	”wŒiF‚Ìİ’è
+	//	èƒŒæ™¯è‰²ã®è¨­å®š
 	SetBackgroundColor(0, 0, 0);
 
-	//	‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»ˆ—
+	//	ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆæœŸåŒ–å‡¦ç†
 	if (DxLib_Init() == -1)
 	{
-		return -1;		//	ƒGƒ‰[‚ª‹N‚«‚½‚ç’¼‚¿‚ÉI—¹
+		return -1;		//	ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸã‚‰ç›´ã¡ã«çµ‚äº†
 	}
 
-	//	ƒEƒBƒ“ƒhƒE•`‰æƒ‚[ƒhİ’è
+	//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦æç”»ãƒ¢ãƒ¼ãƒ‰è¨­å®š
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	Game game_obj;
@@ -39,50 +41,133 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	scene_game_obj.Init();
 
 	//===============================================
-	//	ƒQ[ƒ€ƒ‹[ƒv
+	//	ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
 	//===============================================
 	while (ProcessMessage() == 0)
 	{
 
-		//	ƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒg‚ğİ’è‚·‚é‚½‚ß‚Ìˆ—
+		//	ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆã‚’è¨­å®šã™ã‚‹ãŸã‚ã®å‡¦ç†
 		clock_t check_fps = clock() + CLOCKS_PER_SEC / 60;
 
-		//	ƒ}ƒEƒXƒJ[ƒ\ƒ‹•\¦İ’è
+		//	ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«è¡¨ç¤ºè¨­å®š
 		SetMouseDispFlag(TRUE);
 
-		//	printfDx‚Ì‰Šú‰»
+		//	printfDxã®åˆæœŸåŒ–
 		clsDx();
 
-		//	‰æ–Êã‚Ì•`‰æ‚ğ‰Šú‰»
+		//	ç”»é¢ä¸Šã®æç”»ã‚’åˆæœŸåŒ–
 		ClearDrawScreen();
 
 		game_obj.Update();
+		// çµ‚äº†ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®è¦æ±‚ã‚’å—ã‘ãŸã‚‰ã€å…±é€šã®çµ‚äº†å‡¦ç†ã¸é€²ã‚€ã€‚
+		if (game_obj.IsExitRequested())
+		{
+			break;
+		}
 		game_obj.Render();
 
-		scene_game_obj.Update();
-		scene_game_obj.Render();
+		//	ãƒã‚¦ã‚¹ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚«ã‚¦ãƒ³ãƒˆç”¨å¤‰æ•°ã‚’å¢—ã‚„ã™
+		if (CheckMouseInput(MOUSE_INPUT_LEFT))
+		{
+			mouseFrame_left++;
+		}
+		else
+		{
+			mouseFrame_left = 0;
+		}
+
+		if (CheckMouseInput(MOUSE_INPUT_RIGHT))
+		{
+			mouseFrame_right++;
+		}
+		
+		
+		else
+		{
+			mouseFrame_right=0;
+		}
 
 
-		//	ƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒg‚ªˆê’è‚É‚È‚é‚Ü‚Å‘Ò‚Âˆ—
+		//	ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆãŒä¸€å®šã«ãªã‚‹ã¾ã§å¾…ã¤å‡¦ç†
 		while (clock() < check_fps) {}
 
-		//	— ‰æ–Ê‚Ì•`‰æ‚ğ•\‚É”½‰f
+		//	è£ç”»é¢ã®æç”»ã‚’è¡¨ã«åæ˜ 
 		ScreenFlip();
 
-		//	ƒ‹[ƒv‚ğ”²‚¯‚é
+		//	ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
 		if (CheckHitKey(KEY_INPUT_ESCAPE))
 		{
-			return 0;
+			// Escape ã§ã‚‚ç”»åƒè§£æ”¾ã¨ DxLib_End ã‚’é€šã‚‹ã€‚
+			break;
 		}
 	}
 
 	//===============================================
-	//	I—¹ˆ—
+	//	çµ‚äº†å‡¦ç†
 	//===============================================
 
-	//	‚c‚wƒ‰ƒCƒuƒ‰ƒŠg—p‚ÌI—¹ˆ—
+	//	ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªä½¿ç”¨ã®çµ‚äº†å‡¦ç†
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ãŸå ´åˆã‚‚å«ã‚ã€DxLib ã®çµ‚äº†å‰ã«ç”»é¢ã®ãƒªã‚½ãƒ¼ã‚¹ã‚’è§£æ”¾ã™ã‚‹ã€‚
+	game_obj.Exit();
 	DxLib_End();
 
-	//	ƒ\ƒtƒg‚ÌI—¹
+	//	ã‚½ãƒ•ãƒˆã®çµ‚äº†
 	return 0;
+}
+
+
+/// <summary>
+/// ãƒã‚¦ã‚¹ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’åˆ¤å®šã—å–å¾—
+/// </summary>
+/// <param name="button"></param>
+/// <returns></returns>
+bool CheckMouseInput(int button)
+{
+	if (GetMouseInput() & button)
+	{
+		return true;
+	}
+	return false;
+}
+
+/// <summary>
+/// ãƒã‚¦ã‚¹ãŒæŠ¼ã•ã‚ŒãŸç¬é–“ã‚’å–å¾—
+/// </summary>
+/// <param name="button"></param>
+/// <returns></returns>
+bool PushMouseInput(int button)
+{
+	if (button & MOUSE_INPUT_LEFT)
+	{
+		if (mouseFrame_left == 1)
+		{
+			return true;
+		}
+	}
+	if (button & MOUSE_INPUT_RIGHT)
+	{
+		if (mouseFrame_right == 1)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+
+/// <summary>
+///	ãƒã‚¦ã‚¹åº§æ¨™ã®å–å¾—
+/// </summary>
+/// <returns></returns>
+int GetMouseX()
+{
+	int mouseX, mouseY;
+	GetMousePoint(&mouseX, &mouseY);
+	return mouseX;
+}
+int GetMouseY()
+{
+	int mouseX, mouseY;
+	GetMousePoint(&mouseX, &mouseY);
+	return mouseY;
 }
