@@ -31,8 +31,7 @@ public:
 
 private:
 
-	//　勝利判定をする関数
-	int CheckWin();
+	
 	//　マークを置く処理をする関数
 	bool MarkPlace(int x, int y);
 	//　
@@ -44,4 +43,7 @@ public:
 	void Update();
 	void Render();
 	void Exit();
+
+	//　勝利判定をする関数
+	int CheckWin();
 };
