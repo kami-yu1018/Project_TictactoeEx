@@ -61,7 +61,7 @@ void Scene_Game::Update()
 	}
 
 	//　勝利判定
-	int winner = CheckWin();
+	winner = CheckWin();
 
 	if (winner == 1)
 	{
@@ -145,6 +145,14 @@ bool Scene_Game::MarkPlace(int x, int y)
 	//　すでに記号が置かれているなら
 	if (draw_player[y][x] != 0)
 	{
+		//　置けない
+		return false;
+	}
+
+	//　勝者がすでに決まっていたら
+	if (winner != 0)
+	{
+		//　置けない
 		return false;
 	}
 
