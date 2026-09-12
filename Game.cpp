@@ -7,6 +7,7 @@ void Game::Init()
 	ResultObj.Init();
 
 	//	最初のシーンはタイトルから
+	nowScene = SCENE_TITLE;
 }
 
 void Game::Update()
