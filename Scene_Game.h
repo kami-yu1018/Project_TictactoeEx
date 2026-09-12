@@ -29,6 +29,7 @@ public:
 private:
 
 	int CheckWin();
+	bool MarkPlace(int x, int y);
 
 public:
 
