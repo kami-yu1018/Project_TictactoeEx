@@ -39,28 +39,15 @@ void Scene_Game::Update()
 	//　左クリックが押されたら
 	if (mouse_input & MOUSE_INPUT_LEFT && key_state == false)
 	{
-		//　盤面のマスをループして、マウスカーソルがどのマスにあるかを判定する
-		for (int y = 0; y < board_size; y++)
+		int board_x;
+		int board_y;
+
+		if (GetBoardCell(mouse_pos_x, mouse_pos_y, &board_x, &board_y))
 		{
-			for (int x = 0; x < board_size; x++)
-			{
-				//　盤面のセルのサイズを計算
-				int cell_size = 700 / board_size;
-
-				int x1 = 50 + cell_size * x;
-				int y1 = 100 + cell_size * y;
-				int x2 = x1 + cell_size;
-				int y2 = y1 + cell_size;
-
-				//マウスがこのマスの中にあるか
-				if (mouse_pos_x >= x1 && mouse_pos_x < x2 && mouse_pos_y >= y1 && mouse_pos_y < y2)
-				{
-					//　マークを置く
-					MarkPlace(x, y);
-					//　プレイヤー交代
-					player_turn = !player_turn;
-				}
-			}
+			//　マークを置く
+			MarkPlace(board_x, board_y);
+			//　プレイヤー交代
+			player_turn = !player_turn;
 		}
 	}
 
@@ -76,16 +63,6 @@ void Scene_Game::Update()
 	{
 		// ×の勝利
 		DrawString(340, 800, "×の勝利", GetColor(255, 255, 255));
-	}
-
-	//　プレイヤーのターンを交互に切り替える
-	if (count % 2 == 0)
-	{
-		player_turn = true;
-	}
-	else
-	{
-		player_turn = false;
 	}
 
 	//　マウスの長押し入力の防止
@@ -258,4 +235,24 @@ int Scene_Game::CheckWin()
 	}
 
 	return 0;
+}
+
+// ----------------------------------------------------
+// カーソルが盤面のどのマスにあるかを取得する関数
+// ----------------------------------------------------
+bool Scene_Game::GetBoardCell(int mouse_pos_x, int mouse_pos_y, int* board_x, int* board_y)
+{
+	//　盤面のセルのサイズを計算
+	int cell_size = 700 / board_size;
+			
+	//マウスが盤面の範囲の中にあるか
+	if (mouse_pos_x < 50 && mouse_pos_x >= 750 && mouse_pos_y < 100 && mouse_pos_y >= 800)
+	{
+		return false;
+	}
+
+	*board_x = (mouse_pos_x - 50) / cell_size;
+	*board_y = (mouse_pos_y - 100) / cell_size;
+
+	return true;
 }

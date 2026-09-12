@@ -32,6 +32,8 @@ private:
 	int CheckWin();
 	//　マークを置く処理をする関数
 	bool MarkPlace(int x, int y);
+	//　
+	bool GetBoardCell(int mouse_pos_x, int mouse_pos_y, int* board_x, int* board_y);
 
 public:
 
