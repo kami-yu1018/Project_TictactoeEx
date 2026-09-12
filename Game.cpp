@@ -68,6 +68,7 @@ void Game::Update()
 	}
 }
 
+//	描画処理
 void Game::Render()
 {
 	if (nowScene == SCENE_TITLE)
