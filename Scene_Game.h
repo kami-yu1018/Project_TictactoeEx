@@ -7,7 +7,7 @@ public:
 
 	//　盤面の状態を保持する配列
 	int board[7][7] = { 0 };
-	int draw_board[7][7] = { 0 };
+	int draw_player[7][7] = { 0 };
 
 	//　ボードのサイズの初期値
 	int board_size = 3;

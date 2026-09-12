@@ -44,10 +44,10 @@ int Scene_Game::CheckWin()
 		for (int x = 0; x < board_size; x++)
 		{
 			//　何もないマスは処理しない
-			if (draw_board[y][x] == 0)	continue;
+			if (draw_player[y][x] == 0)	continue;
 
 			// 現在の記号
-			int player = draw_board[y][x];
+			int player = draw_player[y][x];
 
 			// 4方向を調べる
 			for (int d = 0; d < 4; d++)
@@ -68,7 +68,7 @@ int Scene_Game::CheckWin()
 					}
 
 					// 同じ記号なら連続数を増やす
-					if (draw_board[next_y][next_x] == player)
+					if (draw_player[next_y][next_x] == player)
 					{
 						line_count++;
 					}
@@ -141,17 +141,17 @@ void Scene_Game::Update()
 					mouse_pos_y >= y1 && mouse_pos_y < y2)
 				{
 					//　空いているマスなら
-					if (draw_board[j][i] == 0)
+					if (draw_player[j][i] == 0)
 					{
 						//　○のターン
 						if (player_turn == true)
 						{
-							draw_board[j][i] = 1;
+							draw_player[j][i] = 1;
 						}
 						//　×のターン
 						else
 						{
-							draw_board[j][i] = 2;
+							draw_player[j][i] = 2;
 						}
 
 						//　置いた数を増やす
@@ -220,12 +220,12 @@ void Scene_Game::Render()
 			int center_y = 100 + cell_size * j + cell_size / 2;
 
 			//　先手の人の番で盤面に記号が置かれている状態なら
-			if(draw_board[j][i] == 1)
+			if(draw_player[j][i] == 1)
 			{
 				//　赤い丸〇を描画
 				DrawCircle(center_x, center_y, cell_size / 3, GetColor(255, 0, 0), FALSE);
 			}
-			else if (draw_board[j][i] == 2)
+			else if (draw_player[j][i] == 2)
 			{
 				int size = cell_size / 3;
 				//　青い×を描画
