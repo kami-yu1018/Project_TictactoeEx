@@ -85,7 +85,6 @@ void Game::Render()
 	if (nowScene == SCENE_RESULT)
 	{
 		ResultObj.Render(gameResult);
-
 	}
 }
 
@@ -94,6 +93,7 @@ void Game::Exit()
 	// 初期化した画面のリソースを解放する。未接続の Result は初期化・解放しない。
 	TitleObj.Exit();
 	RuleObj.Exit();
+	ResultObj.Exit();
 }
 
 bool Game::IsExitRequested() const
