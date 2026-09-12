@@ -3,7 +3,13 @@
 
 void Game::Init()
 {
-	// �N�����̓^�C�g������J�n�B���[���摜�͈�x�����ǂݍ��݁A�߂��Ă��ė��p����B
+	//	初期化
+	RuleObj.Init();
+	ResultObj.Init();
+
+	//	最初のシーンはタイトルから
+	nowScene = SCENE_TITLE;
+	// 起動時はタイトルから開始。ルール画像は一度だけ読み込み、戻っても再利用する。
 	nowScene = SCENE_TITLE;
 	exitRequested = false;
 	TitleObj.Init();
@@ -12,19 +18,34 @@ void Game::Init()
 
 void Game::Update()
 {
-	// �\�����̉�ʂ������X�V����B�J�ڂ������ Update �͎��̃t���[���ŌĂԁB
+	if (nowScene == SCENE_TITLE)
+	{
+
+	}
+	if (nowScene == SCENE_GAME)
+	{
+
+	}
+	if (nowScene == SCENE_RULE)
+	{
+		RuleObj.Update();
+	}
+	if (nowScene == SCENE_RESULT)
+	{
+		ResultObj.Update();
+	// 表示中の画面だけを更新する。遷移した先の Update は次のフレームで呼ぶ。
 	switch (nowScene)
 	{
 	case SCENE_TITLE:
 		TitleObj.Update();
-		// �^�C�g���͗v��������ʒm���A���ۂ̐؂�ւ��� Game ���S������B
+		// タイトルは要求だけを通知し、実際の切り替えは Game が担当する。
 		switch (TitleObj.nextscene)
 		{
 		case Scene_Title::GAME:
 			nowScene = SCENE_GAME;
 			break;
 		case Scene_Title::RULE:
-			// �O��́u�߂�v�v���������Ă���A�����̃��[����ʂֈڂ�B
+			// 前回の「戻る」要求を消してから、既存のルール画面へ移る。
 			RuleObj.scene_back_frag = false;
 			nowScene = SCENE_RULE;
 			break;
@@ -38,7 +59,7 @@ void Game::Update()
 
 	case SCENE_RULE:
 		RuleObj.Update();
-		// ���[����ʂ̊����̖߂�{�^�������Ă�t���O�𗘗p����B
+		// ルール画面の既存の戻るボタンが立てるフラグを利用する。
 		if (RuleObj.scene_back_frag)
 		{
 			TitleObj.Init();
@@ -47,7 +68,7 @@ void Game::Update()
 		break;
 
 	case SCENE_GAME:
-		// ����ʂ��� B �L�[�Ŗ߂��B�{�̂̎������͂����� Scene_Game �ɐڑ�����B
+		// 仮画面から B キーで戻れる。本体の実装時はここを Scene_Game に接続する。
 		if (CheckHitKey(KEY_INPUT_B))
 		{
 			TitleObj.Init();
@@ -59,7 +80,22 @@ void Game::Update()
 
 void Game::Render()
 {
-	// �����炠�����Ֆʕ`��̎���R�[�h�́A�Q�[���S���Ƃ̋��L�p�Ɏc���B
+	if (nowScene == SCENE_TITLE)
+	{
+
+	}
+	if (nowScene == SCENE_GAME)
+	{
+
+	}
+	if (nowScene == SCENE_RULE)
+	{
+		RuleObj.Render();
+	}
+	if (nowScene == SCENE_RESULT)
+	{
+		ResultObj.Render(gameResult);
+	// 元からあった盤面描画の試作コードは、ゲーム担当との共有用に残す。
 	/*for (int j = 0; j < 7; ++j)
 	{
 		for (int i = 0; i < 7; ++i)
@@ -71,7 +107,7 @@ void Game::Render()
 			DrawBox(x1, y1, x2, y2, GetColor(255, 255, 255), FALSE);
 		}
 	}*/
-	// �I�΂�Ă����ʂ�����`�悵�A�ʃV�[���̕`����d�˂Ȃ��B
+	// 選ばれている画面だけを描画し、別シーンの描画を重ねない。
 	switch (nowScene)
 	{
 	case SCENE_TITLE:
@@ -81,17 +117,17 @@ void Game::Render()
 		RuleObj.Render();
 		break;
 	case SCENE_GAME:
-		// �Q�[���{�̂͑��S���̂��ߍ�炸�A�J�ڊm�F�p�̕���������\������B
-		DrawString(220, 380, "�Q�[����ʁi���j", GetColor(255, 255, 255));
-		DrawString(220, 430, "�Q�[���X�^�[�g�̑J�ڂ��󂯕t���܂���", GetColor(255, 255, 255));
-		DrawString(220, 480, "B �L�[�F�^�C�g���֖߂�", GetColor(255, 255, 255));
+		// ゲーム本体は他担当のため作らず、遷移確認用の文字だけを表示する。
+		DrawString(220, 380, "ゲーム画面（仮）", GetColor(255, 255, 255));
+		DrawString(220, 430, "ゲームスタートの遷移を受け付けました", GetColor(255, 255, 255));
+		DrawString(220, 480, "B キー：タイトルへ戻る", GetColor(255, 255, 255));
 		break;
 	}
 }
 
 void Game::Exit()
 {
-	// ������������ʂ̃��\�[�X���������B���ڑ��� Result �͏������E������Ȃ��B
+	// 初期化した画面のリソースを解放する。未接続の Result は初期化・解放しない。
 	TitleObj.Exit();
 	RuleObj.Exit();
 }
