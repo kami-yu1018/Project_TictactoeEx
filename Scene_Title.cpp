@@ -12,6 +12,9 @@ void Scene_Title::Init()
 	nextscene = NONE;
 	// 戻るボタンなど、シーンに入る前から押されていた左ボタンでは決定しない。
 	previousLeft = CheckMouseInput(MOUSE_INPUT_LEFT);
+
+	//	seの読み込み
+	check_se = LoadSoundMem("data/se/check.mp3");
 }
 
 void Scene_Title::Update()

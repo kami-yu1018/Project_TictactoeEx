@@ -23,6 +23,9 @@ private:
 	static constexpr int MENU_BOTTOM_OFFSET = 54;
 	static constexpr int MENU_COUNT = 3;
 
+	//	SE
+	int check_se;
+
 public:
 	// Game に渡す遷移要求。タイトル自身は画面の切り替えや終了を実行しない。
 	enum NextScene
