@@ -1,7 +1,5 @@
 #pragma once
 
-#include"DxLib.h"
-
 class Scene_Title
 {
 private:
