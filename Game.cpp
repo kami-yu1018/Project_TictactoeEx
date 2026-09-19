@@ -6,6 +6,7 @@ void Game::Init()
 	//	初期化
 	RuleObj.Init();
 	ResultObj.Init();
+	GameObj.Init();
 	TitleObj.Init();
 
 	//	最初のシーンはタイトルから

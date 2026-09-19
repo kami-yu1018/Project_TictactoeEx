@@ -3,6 +3,9 @@
 //　初期化処理
 void Scene_Game::Init()
 {
+	//	背景の読み込み
+	backgroundImage = LoadGraph("data/background.png");
+
 	player_turn = true;
 	for (int i = 0; i < 9; ++i)
 	{
@@ -101,6 +104,9 @@ void Scene_Game::Update()
 //　描画処理
 void Scene_Game::Render()
 {
+	//	背景画像の描画
+	DrawGraph(0, 0, backgroundImage,TRUE);
+
 	//　盤面の描画
 	for (int y = 0; y < board_size; ++y)
 	{
@@ -110,7 +116,7 @@ void Scene_Game::Render()
 			int y1 = 100 + (700 / board_size) * (y);
 			int x2 = x1 + (700 / board_size);
 			int y2 = y1 + (700 / board_size);
-			DrawBox(x1, y1, x2, y2, GetColor(255, 255, 255), FALSE);
+			DrawBox(x1, y1, x2, y2, GetColor(0, 0, 0), FALSE);
 
 			//　盤面のセルのサイズを計算
 			int cell_size = 700 / board_size;
@@ -136,11 +142,11 @@ void Scene_Game::Render()
 	//　プレイヤーのターンを画面中央上に表示
 	if(player_turn == true)
 	{
-		DrawFormatString(340, 50, GetColor(255, 255, 255), "〇の人のターンです");
+		DrawFormatString(340, 50, GetColor(0, 0, 0), "〇の人のターンです");
 	}
 	else
 	{
-		DrawFormatString(340, 50, GetColor(255, 255, 255), "×の人のターンです");
+		DrawFormatString(340, 50, GetColor(0, 0, 0), "×の人のターンです");
 	}
 }
 
