@@ -73,10 +73,10 @@ void Game::Update()
 		if (ResultObj.nextscene == 1)
 
 		{
-
 			// タイトルへ戻る
 
 			TitleObj.Init();
+			GameObj.Init();
 
 			ResultObj.nextscene = 0;
 
@@ -87,7 +87,6 @@ void Game::Update()
 		else if (ResultObj.nextscene == 2)
 
 		{
-
 			// リトライ
 
 			GameObj.Init();

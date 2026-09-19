@@ -4,6 +4,19 @@
 void Scene_Game::Init()
 {
 	player_turn = true;
+	for (int i = 0; i < 9; ++i)
+	{
+		for (int j = 0; j < 9; ++j)
+		{
+			board[i][j] = 0;
+			draw_player[i][j] = 0;
+		}
+	}
+	board_size = 3;
+	
+	count = 0;
+
+	winner = 0;
 }
 
 //@XVˆ—
