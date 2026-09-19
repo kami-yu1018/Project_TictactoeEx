@@ -5,7 +5,6 @@ void Game::Init()
 {
 	//	初期化
 	RuleObj.Init();
-	GameObj.Init();
 	ResultObj.Init();
 	TitleObj.Init();
 
@@ -17,9 +16,8 @@ void Game::Init()
 
 void Game::Update()
 {
-	switch (nowScene)
+	if (nowScene == SCENE_TITLE)
 	{
-	case SCENE_TITLE:
 		TitleObj.Update();
 		// タイトルは要求だけを通知し、実際の切り替えは Game が担当する。
 		switch (TitleObj.nextscene)
@@ -39,20 +37,15 @@ void Game::Update()
 		case Scene_Title::NONE:
 			break;
 		}
-		break;
+	}
+	if (nowScene == SCENE_GAME)
+	{
 
-	case SCENE_GAME:
-		GameObj.Update();
-		gameResult = GameObj.CheckWin();
-		if (gameResult > 0)
-		{
-			nowScene = SCENE_RESULT;
-		}
-		break;
-
-	case SCENE_RULE:
+	}
+	if (nowScene == SCENE_RULE)
+	{
 		RuleObj.Update();
-
+		
 		if (RuleObj.scene_back_frag)
 		{
 			switch (backScene)
@@ -67,36 +60,33 @@ void Game::Update()
 				break;
 			}
 		}
-		break;
-
-	case SCENE_RESULT:
+	}
+	if (nowScene == SCENE_RESULT)
+	{
 		ResultObj.Update();
-		break;
+	
 	}
 }
 
 //	描画処理
 void Game::Render()
 {
-	switch (nowScene)
+	if (nowScene == SCENE_TITLE)
 	{
-	case SCENE_TITLE:
 		TitleObj.Render();
-		break;
-
-	case SCENE_GAME:
-		GameObj.Render();
-		break;
-
-	case SCENE_RULE:
-		RuleObj.Render();
-		break;
-
-	case SCENE_RESULT:
-		ResultObj.Render(gameResult);
-		break;
 	}
-	
+	if (nowScene == SCENE_GAME)
+	{
+
+	}
+	if (nowScene == SCENE_RULE)
+	{
+		RuleObj.Render();
+	}
+	if (nowScene == SCENE_RESULT)
+	{
+		ResultObj.Render(gameResult);
+	}
 }
 
 void Game::Exit()
