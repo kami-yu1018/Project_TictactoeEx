@@ -12,6 +12,9 @@ class Scene_Rule
 	Se se;
 	int back_se;	//	SE
 
+	int shade_alpha;	//	フェードアウト用
+	bool nextGo;		//	次のシーンに進んでよいか
+
 public:
 	bool scene_back_frag = 0;	//	戻るボタンが押されたかどうかのフラグ
 
