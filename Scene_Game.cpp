@@ -148,6 +148,9 @@ void Scene_Game::Render()
 	{
 		DrawFormatString(340, 50, GetColor(0, 0, 0), "×の人のターンです");
 	}
+
+	DrawFormatString(150, 840, GetColor(0, 0, 0), "現在のマス数：%d×%d", board_size, board_size);
+	DrawFormatString(500, 840, GetColor(0, 0, 0), "１ライン：記号%d個", win_count);
 }
 
 //　終了処理
@@ -201,7 +204,7 @@ bool Scene_Game::MarkPlace(int x, int y)
 int Scene_Game::CheckWin()
 {
 	//　勝利に必要な記号の数
-	int win_count = 3;
+	win_count = 3;
 
 	//　盤面が3×3の時
 	if (board_size == 3)
