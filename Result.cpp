@@ -115,6 +115,7 @@ void Result::Update()
 
 void Result::Render(int playresult)
 {
+
 	DrawGraph(0, 0, backgroundImage, TRUE);
 
 	if (playresult == 1)
@@ -125,11 +126,42 @@ void Result::Render(int playresult)
 	{
 		DrawGraph(150, 100, resultImage[1], TRUE);
 	}
+	//---------------------------------
+	// タイトルへ戻る
+	//---------------------------------
+	if (selectedItem == 0)
+	{
+		DrawBox(100, 400, 700, 450, GetColor(0, 0, 0), TRUE);
 
-	DrawString(100, 400, "タイトルへ戻る", GetColor(255, 255, 255));
-	DrawString(100, 500, "リトライ", GetColor(255, 255, 255));
+		DrawTriangle(70, 410, 70, 440, 90, 425, GetColor(255, 255, 255), TRUE);
 
-	DrawFormatString(10, 10, GetColor(255, 255, 255), "%d", nextscene);
+		DrawString(120, 410, "タイトルへ戻る", GetColor(255, 255, 255));
+	}
+	else
+	{
+		DrawString(120, 410, "タイトルへ戻る", GetColor(0, 0, 0));
+	}
+
+	//---------------------------------
+	// リトライ
+	//---------------------------------
+	if (selectedItem == 1)
+	{
+		DrawBox(100, 500, 700, 550, GetColor(0, 0, 0), TRUE);
+
+		DrawTriangle(70, 510, 70, 540, 90, 525, GetColor(255, 255, 255), TRUE);
+
+		DrawString(120, 510, "リトライ", GetColor(255, 255, 255));
+	}
+	else
+	{
+		DrawString(120, 510, "リトライ", GetColor(0, 0, 0));
+	}
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, shade_alpha);
+	DrawBox(0, 0, WINDOW_W, WINDOW_H, GetColor(0, 0, 0), TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
 }
 
 void Result::Exit()
