@@ -24,7 +24,6 @@ class Game
 	bool exitRequested = false; // main に正常終了を依頼するフラグ。
 	//	インスタンス
 	Scene_Title TitleObj;
-	Scene_Game GameObj;
 	Scene_Rule RuleObj;
 	Result ResultObj;
 

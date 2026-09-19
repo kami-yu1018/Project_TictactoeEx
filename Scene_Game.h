@@ -6,8 +6,8 @@ class Scene_Game
 public:
 
 	//　盤面の状態を保持する配列
-	int board[7][7] = { 0 };
-	int draw_player[7][7] = { 0 };
+	int board[9][9] = { 0 };
+	int draw_player[9][9] = { 0 };
 
 	//　ボードのサイズの初期値
 	int board_size = 3;
@@ -26,9 +26,13 @@ public:
 	//　記号を置いた数をカウント
 	int count = 0;
 
+	//　勝者が誰かを判定した数字を入れる用の変数
+	int winner = 0;
+
 private:
 
-	
+	//　勝利判定をする関数
+	int CheckWin();
 	//　マークを置く処理をする関数
 	bool MarkPlace(int x, int y);
 	//　
@@ -40,7 +44,4 @@ public:
 	void Update();
 	void Render();
 	void Exit();
-
-	//　勝利判定をする関数
-	int CheckWin();
 };

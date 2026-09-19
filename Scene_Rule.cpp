@@ -15,8 +15,6 @@ void Scene_Rule::Init()
 
 	//	戻るボタンのフラグの初期化
 	scene_back_frag = false;
-
-	back_se = LoadSoundMem("data/se/back.mp3");
 }
 
 void Scene_Rule::Update()
@@ -31,15 +29,6 @@ void Scene_Rule::Update()
 		&& mouseY >= 20 && mouseY <= 70)
 	{
 		scene_back_frag = true;
-		
-		if (se.se_ring == 0)
-		{
-			se.PlaySe(back_se);
-		}
-	}
-	else
-	{
-		se.se_ring = 0;
 	}
 
 }
