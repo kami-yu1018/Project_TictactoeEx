@@ -25,6 +25,7 @@ class Game
 	//	インスタンス
 	Scene_Title TitleObj;
 	Scene_Rule RuleObj;
+	Scene_Game GameObj;
 	Result ResultObj;
 
 public:
