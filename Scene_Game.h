@@ -26,6 +26,9 @@ public:
 	//　記号を置いた数をカウント
 	int count = 0;
 
+	//　勝利に必要な記号の数
+	int win_count;
+
 	//　勝者が誰かを判定した数字を入れる用の変数
 	int winner = 0;
 
