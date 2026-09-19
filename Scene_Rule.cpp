@@ -52,7 +52,8 @@ void Scene_Rule::Update()
 		if (shade_alpha >= 255)
 		{
 			scene_back_frag = true;
-			shade_alpha = 0;
+			nextGo = false;
+
 		}
 	}
 	else
@@ -62,6 +63,7 @@ void Scene_Rule::Update()
 		{
 			shade_alpha = 0;
 		}
+		scene_back_frag = false;
 	}
 }
 
