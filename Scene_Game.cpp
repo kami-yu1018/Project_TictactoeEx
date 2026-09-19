@@ -20,6 +20,11 @@ void Scene_Game::Init()
 	count = 0;
 
 	winner = 0;
+
+	win_count = 3;
+
+	key_state = false;
+
 }
 
 //　更新処理
@@ -31,36 +36,33 @@ void Scene_Game::Update()
 	//　マウスの入力状態を取得
 	mouse_input = GetMouseInput();
 
-	//　盤面のサイズを制限
-	if (board_size >= 7)
+	//　勝者が決まっていなかったら
+	if (winner == 0)
 	{
-		//　一番大きいときは 7×7
-		board_size = 7;
-	}
-
-	//　盤面のサイズを更新
-	//　最小サイズ
-	if (count < 9)
-	{
-		//　3×3
-		board_size = 3;
-	}
-	//　盤面が埋まったら
-	else if (count >= 9 && count < 25)
-	{
-		//　5×5
-		board_size = 5;
-	}
-	//　また盤面が埋まったら
-	else if (count >= 25 && count < 49)
-	{
-		//　7×7
-		board_size = 7;
-	}
-	else if (count >= 49)
-	{
-		//　9×9
-		board_size = 9;
+		//　盤面のサイズを更新
+		//　最小サイズ
+		if (count < 9)
+		{
+			//　3×3
+			board_size = 3;
+		}
+		//　盤面が埋まったら
+		else if (count >= 9 && count < 25)
+		{
+			//　5×5
+			board_size = 5;
+		}
+		//　また盤面が埋まったら
+		else if (count >= 25 && count < 49)
+		{
+			//　7×7
+			board_size = 7;
+		}
+		else if (count >= 49)
+		{
+			//　9×9
+			board_size = 9;
+		}
 	}
 
 	//　左クリックが押されたら
@@ -76,8 +78,12 @@ void Scene_Game::Update()
 		}
 	}
 
-	//　勝利判定
-	winner = CheckWin();
+	//　勝者が決まっていなかったら
+	if (winner == 0)
+	{
+		//　勝利判定
+		winner = CheckWin();
+	}
 
 	if (winner == 1)
 	{
@@ -203,22 +209,19 @@ bool Scene_Game::MarkPlace(int x, int y)
 // --------------------------------------
 int Scene_Game::CheckWin()
 {
-	//　勝利に必要な記号の数
-	win_count = 3;
-
 	//　盤面が3×3の時
 	if (board_size == 3)
 	{
 		//　勝利に必要な記号の数は3
 		win_count = 3;
 	}
-	//　盤面が4×4の時
+	//　盤面が5×5の時
 	else if (board_size == 5)
 	{
 		//　4
 		win_count = 4;
 	}
-	//　盤面が5×5の時
+	//　盤面が7×7の時
 	else if(board_size == 7)
 	{
 		//　5
@@ -252,13 +255,16 @@ int Scene_Game::CheckWin()
 			// 4方向を調べる
 			for (int d = 0; d < 4; d++)
 			{
+				int dx = directions[d][0];
+				int dy = directions[d][1];
+
 				int line_count = 1;
 
 				// 次のマスを調べる
 				for (int n = 1; n < win_count; n++)
 				{
-					int next_x = x + directions[d][0] * n;
-					int next_y = y + directions[d][1] * n;
+					int next_x = x + dx * n;
+					int next_y = y + dy * n;
 
 					// 盤面の外なら終了
 					if (next_x < 0 || next_x >= board_size ||
