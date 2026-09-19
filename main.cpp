@@ -1,4 +1,4 @@
-﻿#include "main.h"
+#include "main.h"
 
 int mouseFrame_left;
 int mouseFrame_right;
@@ -20,7 +20,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetGraphMode(WINDOW_W, WINDOW_H, 32);
 
 	//	ウィンドウのタイトル
-	SetMainWindowText("○×ゲーム");
+	SetMainWindowText(TEXT("○×ゲーム"));
 
 	//	背景色の設定
 	SetBackgroundColor(0, 0, 0);
