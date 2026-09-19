@@ -4,17 +4,23 @@
 
 class Scene_Rule
 {
-	// ƒƒ“ƒo•Ï”
-	int ruleImage; // ƒ‹[ƒ‹‰æ‘œ‚Ìƒnƒ“ƒhƒ‹
-	int backImage; // –ß‚éƒ{ƒ^ƒ“‚Ìƒnƒ“ƒhƒ‹
+	// ãƒ¡ãƒ³ãƒå¤‰æ•°
+	int ruleImage; // ãƒ«ãƒ¼ãƒ«ç”»åƒã®ãƒãƒ³ãƒ‰ãƒ«
+	int backImage; // æˆ»ã‚‹ãƒœã‚¿ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ«
+
+	Se se;
+	int back_se;	//	SE
+
+	int shade_alpha;	//	ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆç”¨
+	bool nextGo;		//	æ¬¡ã®ã‚·ãƒ¼ãƒ³ã«é€²ã‚€ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
 
 public:
-	bool scene_back_frag = 0;	//	–ß‚éƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
+	bool scene_back_frag = 0;	//	æˆ»ã‚‹ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
 
-	Scene_Rule();	//	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	Scene_Rule();	//	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
-	void Init();	//	‰Šú‰»
-	void Update();	//	XV
-	void Render();	//	•`‰æ
-	void Exit();	//	I—¹
+	void Init();	//	åˆæœŸåŒ–
+	void Update();	//	æ›´æ–°
+	void Render();	//	æç”»
+	void Exit();	//	çµ‚äº†
 };

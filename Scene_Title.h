@@ -26,6 +26,10 @@ private:
 	//	SE
 	int check_se;
 
+	//	アニメーション用
+	int shade_alpha;	//	フェードアウト用画像の不透明度
+	bool nextGo;		//	次のシーンに遷移するかどうか
+
 public:
 	// Game に渡す遷移要求。タイトル自身は画面の切り替えや終了を実行しない。
 	enum NextScene

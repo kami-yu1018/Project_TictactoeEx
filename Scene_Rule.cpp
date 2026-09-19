@@ -3,40 +3,78 @@
 
 Scene_Rule::Scene_Rule() 
 {
-	ruleImage = -1; // ƒ‹[ƒ‹‰æ‘œ‚Ìƒnƒ“ƒhƒ‹‚ð‰Šú‰»
-	backImage = -1;	//	–ß‚éƒ{ƒ^ƒ“‚Ìƒnƒ“ƒhƒ‹‚ð‰Šú‰»
+	ruleImage = -1; // ãƒ«ãƒ¼ãƒ«ç”»åƒã®ãƒãƒ³ãƒ‰ãƒ«ã‚’åˆæœŸåŒ–
+	backImage = -1;	//	æˆ»ã‚‹ãƒœã‚¿ãƒ³ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’åˆæœŸåŒ–
 }
 
 void Scene_Rule::Init()
 {
-	//	‰æ‘œ“Ç‚Ýž‚Ý
+	//	ç”»åƒèª­ã¿è¾¼ã¿
 	ruleImage = LoadGraph("data/Rule_image.png");
 	backImage = LoadGraph("data/back_img.png");
+	//	seèª­ã¿è¾¼ã¿
+	back_se = LoadSoundMem("data/se/back.mp3");
 
-	//	–ß‚éƒ{ƒ^ƒ“‚Ìƒtƒ‰ƒO‚Ì‰Šú‰»
+	//	æˆ»ã‚‹ãƒœã‚¿ãƒ³ã®ãƒ•ãƒ©ã‚°ã®åˆæœŸåŒ–
 	scene_back_frag = false;
+	
+	shade_alpha = 254;
+	nextGo = false;
 }
 
 void Scene_Rule::Update()
 {
-	//	–ß‚éƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒV[ƒ“‚ð–ß‚·
-	//	ƒ}ƒEƒXÀ•W‚ðŽæ“¾
+	//	æˆ»ã‚‹ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚·ãƒ¼ãƒ³ã‚’æˆ»ã™
+	//	ãƒžã‚¦ã‚¹åº§æ¨™ã‚’å–å¾—
 	int mosueX = GetMouseX();
 	int mouseY = GetMouseY();
-	//	¶ƒNƒŠƒbƒN‚³‚ê‚½Žž‚ÌÀ•W‚ª–ß‚éƒ{ƒ^ƒ“‚Ì”ÍˆÍ“à‚Å‚ ‚ê‚ÎƒV[ƒ“‚ð–ß‚·
+	//	å·¦ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸæ™‚ã®åº§æ¨™ãŒæˆ»ã‚‹ãƒœã‚¿ãƒ³ã®ç¯„å›²å†…ã§ã‚ã‚Œã°ã‚·ãƒ¼ãƒ³ã‚’æˆ»ã™
 	if (PushMouseInput(MOUSE_INPUT_LEFT)
 		&& mosueX >= 20 && mosueX <= 70
 		&& mouseY >= 20 && mouseY <= 70)
 	{
-		scene_back_frag = true;
+//		scene_back_frag = true;
+		nextGo = true;
+		
+		if (se.se_ring == 0)
+		{
+			se.PlaySe(back_se);
+		}
+	}
+	else
+	{
+		se.se_ring = 0;
 	}
 
+	if (nextGo)
+	{
+		shade_alpha += 5;
+		if (shade_alpha >= 255)
+		{
+			scene_back_frag = true;
+			nextGo = false;
+
+		}
+	}
+	else
+	{
+		shade_alpha -= 20;
+		if (shade_alpha < 0)
+		{
+			shade_alpha = 0;
+		}
+		scene_back_frag = false;
+	}
 }
 
 void Scene_Rule::Render()
 {
 	DrawGraph(0, 0, ruleImage, TRUE);
 	DrawGraph(20, 20, backImage, TRUE);
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, shade_alpha);
+	DrawBox(0, 0, WINDOW_W, WINDOW_H, GetColor(0, 0, 0), TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 void Scene_Rule::Exit()
