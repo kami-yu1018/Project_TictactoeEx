@@ -71,31 +71,34 @@ void Game::Update()
 
 	case SCENE_RESULT:
 		ResultObj.Update();
-		if (ResultObj.nextscene == 1)
-
+		if(ResultObj.nextGo)
 		{
-			// タイトルへ戻る
+			if (ResultObj.nextscene == 1)
 
-			TitleObj.Init();
-			GameObj.Init();
+			{
+				// タイトルへ戻る
 
-			ResultObj.nextscene = 0;
+				TitleObj.Init();
+				GameObj.Init();
 
-			nowScene = SCENE_TITLE;
+				ResultObj.Init();
 
-		}
+				nowScene = SCENE_TITLE;
 
-		else if (ResultObj.nextscene == 2)
+			}
 
-		{
-			// リトライ
+			else if (ResultObj.nextscene == 2)
 
-			GameObj.Init();
+			{
+				// リトライ
 
-			ResultObj.nextscene = 0;
+				GameObj.Init();
 
-			nowScene = SCENE_GAME;
+				ResultObj.Init();
 
+				nowScene = SCENE_GAME;
+
+			}
 		}
 
 		break;
