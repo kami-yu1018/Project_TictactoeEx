@@ -15,6 +15,10 @@ void Scene_Title::Init()
 
 	//	seの読み込み
 	check_se = LoadSoundMem("data/se/check.mp3");
+
+	//	不透明度は０
+	shade_alpha = 0;
+	nextGo = 0;
 }
 
 void Scene_Title::Update()
@@ -27,36 +31,68 @@ void Scene_Title::Update()
 	// 決定後は Game が遷移要求を処理するまで、次のクリックを受け付けない。
 	if (nextscene == NONE)
 	{
-		// メニュー外では選択を外す。項目間の隙間や背景のクリックでは決定しない。
-		selectedItem = -1;
-		for (int i = 0; i < MENU_COUNT; ++i)
+		if(!nextGo)
 		{
-			const int y = MENU_FIRST_Y + i * MENU_INTERVAL;
-			if (mouseX >= MENU_LEFT && mouseX <= MENU_RIGHT
-				&& mouseY >= y + MENU_TOP_OFFSET && mouseY <= y + MENU_BOTTOM_OFFSET)
+			// メニュー外では選択を外す。項目間の隙間や背景のクリックでは決定しない。
+			selectedItem = -1;
+			for (int i = 0; i < MENU_COUNT; ++i)
 			{
-				selectedItem = i;
-				break;
+				const int y = MENU_FIRST_Y + i * MENU_INTERVAL;
+				if (mouseX >= MENU_LEFT && mouseX <= MENU_RIGHT
+					&& mouseY >= y + MENU_TOP_OFFSET && mouseY <= y + MENU_BOTTOM_OFFSET)
+				{
+					selectedItem = i;
+					break;
+				}
+
 			}
-			
 		}
 
-		// 項目の上で左ボタンを押した瞬間だけ、対応する遷移要求を Game に渡す。
+		//	GAMEに渡す次のシーン変数
+		const NextScene destinations[] = { GAME, RULE, QUIT };
+		// 項目の上で左ボタンを押した瞬間、次のシーンへ移動してもよいと設定する。
 		// 押したまま別の項目へ移動しても決定しない。
 		if (selectedItem >= 0 && left && !previousLeft)
 		{
-			const NextScene destinations[] = { GAME, RULE, QUIT };
-			nextscene = destinations[selectedItem];
+			nextGo = 1;
+
+			//	seを鳴らす
 			if (se.se_ring == 0)
 			{
 				se.PlaySe(check_se);
 				se.se_ring = 1;
 			}
+			/*if(shade_alpha>=255)
+			{
+				const NextScene destinations[] = { GAME, RULE, QUIT };
+				nextscene = destinations[selectedItem];
+				if (se.se_ring == 0)
+				{
+					se.PlaySe(check_se);
+					se.se_ring = 1;
+				}
+			}*/
 		}
 		else
 		{
-			se.se_ring = 0;
+			if(!nextGo)
+			{
+				se.se_ring = 0;
+			}
 		}
+
+		//	次のシーンへ移って良いのなら
+		if(nextGo)
+		{
+			//	フェードアウト用画像の不透明度をあげる
+			shade_alpha += 5;
+			//	不透明度が最大になったら対応する次のシーンへ
+			if (shade_alpha >= 255)
+			{
+				nextscene = destinations[selectedItem];
+			}
+		}
+
 	}
 
 	// 今回の押下状態を保存し、次フレームの長押し判定に使う。
@@ -98,6 +134,10 @@ void Scene_Title::Render()
 	const char* guide = "マウスで選択　左クリックで決定";
 	width = GetDrawStringWidth(guide, lstrlenA(guide));
 	DrawString((WINDOW_W - width) / 2, 745, guide, ink);
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, shade_alpha);
+	DrawBox(0, 0, WINDOW_W, WINDOW_H, GetColor(0, 0, 0), TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 void Scene_Title::Exit()
