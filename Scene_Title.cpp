@@ -38,7 +38,6 @@ void Scene_Title::Update()
 				selectedItem = i;
 				break;
 			}
-			
 		}
 
 		// 項目の上で左ボタンを押した瞬間だけ、対応する遷移要求を Game に渡す。
@@ -47,15 +46,6 @@ void Scene_Title::Update()
 		{
 			const NextScene destinations[] = { GAME, RULE, QUIT };
 			nextscene = destinations[selectedItem];
-			if (se.se_ring == 0)
-			{
-				se.PlaySe(check_se);
-				se.se_ring = 1;
-			}
-		}
-		else
-		{
-			se.se_ring = 0;
 		}
 	}
 
