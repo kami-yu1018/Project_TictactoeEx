@@ -12,6 +12,8 @@ void Result::Init()
 
 	//	関数の初期化
 	nextscene = 0;
+	shade_alpha = 255;
+	nextGo = false;
 }
 
 void Result::Update()
@@ -37,6 +39,25 @@ void Result::Update()
 			nextscene = 2;
 		}
 	}
+
+	//	フェードイン、アウト
+	if (nextscene > 0)
+	{
+		shade_alpha += 5;
+		//	不透明度が最大になったら次のシーンへ行ってよし
+		if (shade_alpha >= 255)
+		{
+			nextGo = true;
+		}
+	}
+	else
+	{
+		shade_alpha -= 20;
+		if (shade_alpha < 0)
+		{
+			shade_alpha = 0;
+		}
+	}
 }
 
 void Result::Render(int playresult)
@@ -52,10 +73,14 @@ void Result::Render(int playresult)
 		DrawGraph(150, 100, resultImage[1], TRUE);
 	}
 
-	DrawString(100, 400, "タイトルへ戻る", GetColor(255, 255, 255));
-	DrawString(100, 500, "リトライ", GetColor(255, 255, 255));
+	DrawString(100, 400, "タイトルへ戻る", GetColor(0, 0, 0));
+	DrawString(100, 500, "リトライ", GetColor(0, 0, 0));
 
-	DrawFormatString(10, 10, GetColor(255, 255, 255), "%d", nextscene);
+	//DrawFormatString(10, 10, GetColor(255, 255, 255), "%d", nextscene);
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, shade_alpha);
+	DrawBox(0, 0, WINDOW_W, WINDOW_H, GetColor(0, 0, 0), TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 void Result::Exit()
