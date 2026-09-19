@@ -1,6 +1,4 @@
 #pragma once
-#include"Sound.h"
-
 
 class Scene_Title
 {
@@ -26,7 +24,6 @@ private:
 	static constexpr int MENU_COUNT = 3;
 
 	//	SE
-	Se se;
 	int check_se;
 
 	//	アニメーション用

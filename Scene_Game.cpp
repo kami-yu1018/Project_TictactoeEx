@@ -23,21 +23,28 @@ void Scene_Game::Update()
 	}
 
 	//　盤面のサイズを更新
-	//　盤面が埋まったら
+	//　最小サイズ
 	if (count < 9)
 	{
+		//　3×3
 		board_size = 3;
 	}
+	//　盤面が埋まったら
 	else if (count >= 9 && count < 25)
 	{
-		//　盤面のサイズを大きくする
+		//　5×5
 		board_size = 5;
 	}
 	//　また盤面が埋まったら
 	else if (count >= 25 && count < 49)
 	{
-		//　さらに大きくする
+		//　7×7
 		board_size = 7;
+	}
+	else if (count >= 49)
+	{
+		//　9×9
+		board_size = 9;
 	}
 
 	//　左クリックが押されたら
@@ -54,7 +61,7 @@ void Scene_Game::Update()
 	}
 
 	//　勝利判定
-	int winner = CheckWin();
+	winner = CheckWin();
 
 	if (winner == 1)
 	{
@@ -138,6 +145,14 @@ bool Scene_Game::MarkPlace(int x, int y)
 	//　すでに記号が置かれているなら
 	if (draw_player[y][x] != 0)
 	{
+		//　置けない
+		return false;
+	}
+
+	//　勝者がすでに決まっていたら
+	if (winner != 0)
+	{
+		//　置けない
 		return false;
 	}
 
@@ -169,23 +184,28 @@ int Scene_Game::CheckWin()
 	//　勝利に必要な記号の数
 	int win_count = 3;
 
-	//　晩面が3×3の時
+	//　盤面が3×3の時
 	if (board_size == 3)
 	{
 		//　勝利に必要な記号の数は3
 		win_count = 3;
 	}
-	//　晩面が4×4の時
+	//　盤面が4×4の時
 	else if (board_size == 5)
 	{
 		//　4
 		win_count = 4;
 	}
-	//　晩面が5×5の時
-	else
+	//　盤面が5×5の時
+	else if(board_size == 7)
 	{
 		//　5
 		win_count = 5;
+	}
+	//　盤面が9×9の時
+	else if (board_size == 9)
+	{
+		win_count = 6;
 	}
 
 	//　判定する方向

@@ -6,34 +6,34 @@ void Scene_Title::Init()
 {
 	Exit();
 	backgroundImage = LoadGraph("data/background.png");
-	titleFont = CreateFontToHandle("ƒƒCƒŠƒI", 48, 3, DX_FONTTYPE_ANTIALIASING_EDGE);
-	menuFont = CreateFontToHandle("ƒƒCƒŠƒI", 32, 2, DX_FONTTYPE_ANTIALIASING_EDGE);
+	titleFont = CreateFontToHandle("ãƒ¡ã‚¤ãƒªã‚ª", 48, 3, DX_FONTTYPE_ANTIALIASING_EDGE);
+	menuFont = CreateFontToHandle("ãƒ¡ã‚¤ãƒªã‚ª", 32, 2, DX_FONTTYPE_ANTIALIASING_EDGE);
 	selectedItem = -1;
 	nextscene = NONE;
-	// –ß‚éƒ{ƒ^ƒ“‚È‚ÇAƒV[ƒ“‚É“ü‚é‘O‚©‚ç‰Ÿ‚³‚ê‚Ä‚¢‚½¶ƒ{ƒ^ƒ“‚Å‚ÍŒˆ’è‚µ‚È‚¢B
+	// æˆ»ã‚‹ãƒœã‚¿ãƒ³ãªã©ã€ã‚·ãƒ¼ãƒ³ã«å…¥ã‚‹å‰ã‹ã‚‰æŠ¼ã•ã‚Œã¦ã„ãŸå·¦ãƒœã‚¿ãƒ³ã§ã¯æ±ºå®šã—ãªã„ã€‚
 	previousLeft = CheckMouseInput(MOUSE_INPUT_LEFT);
 
-	//	se‚Ì“Ç‚İ‚İ
+	//	seã®èª­ã¿è¾¼ã¿
 	check_se = LoadSoundMem("data/se/check.mp3");
 
-	//	•s“§–¾“x‚Í‚O
+	//	ä¸é€æ˜åº¦ã¯ï¼
 	shade_alpha = 255;
 	nextGo = 0;
 }
 
 void Scene_Title::Update()
 {
-	// Šù‘¶‚Ìƒ}ƒEƒX“ü—ÍŠÖ”‚ğ—˜—p‚·‚éBŒ»İ‚Æ‘O‰ñ‚Ìó‘Ô‚Å‰Ÿ‚µ‚½uŠÔ‚ğ”»’è‚·‚éB
+	// æ—¢å­˜ã®ãƒã‚¦ã‚¹å…¥åŠ›é–¢æ•°ã‚’åˆ©ç”¨ã™ã‚‹ã€‚ç¾åœ¨ã¨å‰å›ã®çŠ¶æ…‹ã§æŠ¼ã—ãŸç¬é–“ã‚’åˆ¤å®šã™ã‚‹ã€‚
 	const int mouseX = GetMouseX();
 	const int mouseY = GetMouseY();
 	const bool left = CheckMouseInput(MOUSE_INPUT_LEFT);
 
-	// Œˆ’èŒã‚Í Game ‚ª‘JˆÚ—v‹‚ğˆ—‚·‚é‚Ü‚ÅAŸ‚ÌƒNƒŠƒbƒN‚ğó‚¯•t‚¯‚È‚¢B
+	// æ±ºå®šå¾Œã¯ Game ãŒé·ç§»è¦æ±‚ã‚’å‡¦ç†ã™ã‚‹ã¾ã§ã€æ¬¡ã®ã‚¯ãƒªãƒƒã‚¯ã‚’å—ã‘ä»˜ã‘ãªã„ã€‚
 	if (nextscene == NONE)
 	{
 		if(!nextGo)
 		{
-			// ƒƒjƒ…[ŠO‚Å‚Í‘I‘ğ‚ğŠO‚·B€–ÚŠÔ‚ÌŒ„ŠÔ‚â”wŒi‚ÌƒNƒŠƒbƒN‚Å‚ÍŒˆ’è‚µ‚È‚¢B
+			// ãƒ¡ãƒ‹ãƒ¥ãƒ¼å¤–ã§ã¯é¸æŠã‚’å¤–ã™ã€‚é …ç›®é–“ã®éš™é–“ã‚„èƒŒæ™¯ã®ã‚¯ãƒªãƒƒã‚¯ã§ã¯æ±ºå®šã—ãªã„ã€‚
 			selectedItem = -1;
 			for (int i = 0; i < MENU_COUNT; ++i)
 			{
@@ -48,15 +48,15 @@ void Scene_Title::Update()
 			}
 		}
 
-		//	GAME‚É“n‚·Ÿ‚ÌƒV[ƒ“•Ï”
+		//	GAMEã«æ¸¡ã™æ¬¡ã®ã‚·ãƒ¼ãƒ³å¤‰æ•°
 		const NextScene destinations[] = { GAME, RULE, QUIT };
-		// €–Ú‚Ìã‚Å¶ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½uŠÔAŸ‚ÌƒV[ƒ“‚ÖˆÚ“®‚µ‚Ä‚à‚æ‚¢‚Æİ’è‚·‚éB
-		// ‰Ÿ‚µ‚½‚Ü‚Ü•Ê‚Ì€–Ú‚ÖˆÚ“®‚µ‚Ä‚àŒˆ’è‚µ‚È‚¢B
+		// é …ç›®ã®ä¸Šã§å·¦ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸç¬é–“ã€æ¬¡ã®ã‚·ãƒ¼ãƒ³ã¸ç§»å‹•ã—ã¦ã‚‚ã‚ˆã„ã¨è¨­å®šã™ã‚‹ã€‚
+		// æŠ¼ã—ãŸã¾ã¾åˆ¥ã®é …ç›®ã¸ç§»å‹•ã—ã¦ã‚‚æ±ºå®šã—ãªã„ã€‚
 		if (selectedItem >= 0 && left && !previousLeft)
 		{
 			nextGo = 1;
 
-			//	se‚ğ–Â‚ç‚·
+			//	seã‚’é³´ã‚‰ã™
 			if (se.se_ring == 0)
 			{
 				se.PlaySe(check_se);
@@ -81,12 +81,12 @@ void Scene_Title::Update()
 			}
 		}
 
-		//	Ÿ‚ÌƒV[ƒ“‚ÖˆÚ‚Á‚Ä—Ç‚¢‚Ì‚È‚ç
+		//	æ¬¡ã®ã‚·ãƒ¼ãƒ³ã¸ç§»ã£ã¦è‰¯ã„ã®ãªã‚‰
 		if(nextGo)
 		{
-			//	ƒtƒF[ƒhƒAƒEƒg—p‰æ‘œ‚Ì•s“§–¾“x‚ğ‚ ‚°‚é
+			//	ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆç”¨ç”»åƒã®ä¸é€æ˜åº¦ã‚’ã‚ã’ã‚‹
 			shade_alpha += 5;
-			//	•s“§–¾“x‚ªÅ‘å‚É‚È‚Á‚½‚ç‘Î‰‚·‚éŸ‚ÌƒV[ƒ“‚Ö
+			//	ä¸é€æ˜åº¦ãŒæœ€å¤§ã«ãªã£ãŸã‚‰å¯¾å¿œã™ã‚‹æ¬¡ã®ã‚·ãƒ¼ãƒ³ã¸
 			if (shade_alpha >= 255)
 			{
 				nextscene = destinations[selectedItem];
@@ -103,7 +103,7 @@ void Scene_Title::Update()
 
 	}
 
-	// ¡‰ñ‚Ì‰Ÿ‰ºó‘Ô‚ğ•Û‘¶‚µAŸƒtƒŒ[ƒ€‚Ì’·‰Ÿ‚µ”»’è‚Ég‚¤B
+	// ä»Šå›ã®æŠ¼ä¸‹çŠ¶æ…‹ã‚’ä¿å­˜ã—ã€æ¬¡ãƒ•ãƒ¬ãƒ¼ãƒ ã®é•·æŠ¼ã—åˆ¤å®šã«ä½¿ã†ã€‚
 	previousLeft = left;
 }
 
@@ -120,11 +120,11 @@ void Scene_Title::Render()
 		DrawBox(0, 0, WINDOW_W, WINDOW_H, GetColor(255, 198, 138), TRUE);
 	}
 
-	const char* title = "›~ƒQ[ƒ€";
+	const char* title = "â—‹Ã—ã‚²ãƒ¼ãƒ ";
 	int width = GetDrawStringWidthToHandle(title, lstrlenA(title), titleFont);
 	DrawStringToHandle((WINDOW_W - width) / 2, 230, title, ink, titleFont, white);
 
-	const char* menu[] = { "ƒQ[ƒ€ƒXƒ^[ƒg", "ƒQ[ƒ€ƒ‹[ƒ‹", "I—¹" };
+	const char* menu[] = { "ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆ", "ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ«", "çµ‚äº†" };
 	for (int i = 0; i < MENU_COUNT; ++i)
 	{
 		const int y = MENU_FIRST_Y + i * MENU_INTERVAL;
@@ -132,14 +132,14 @@ void Scene_Title::Render()
 		if (selected)
 		{
 			DrawBox(MENU_LEFT, y + MENU_TOP_OFFSET, MENU_RIGHT, y + MENU_BOTTOM_OFFSET, ink, TRUE);
-			// ƒtƒHƒ“ƒg‚ÉˆË‘¶‚µ‚È‚¢‰EŒü‚«‚Ì‘I‘ğ–îˆóB
+			// ãƒ•ã‚©ãƒ³ãƒˆã«ä¾å­˜ã—ãªã„å³å‘ãã®é¸æŠçŸ¢å°ã€‚
 			DrawTriangle(190, y + 6, 190, y + 32, 210, y + 19, white, TRUE);
 		}
 		width = GetDrawStringWidthToHandle(menu[i], lstrlenA(menu[i]), menuFont);
 		DrawStringToHandle((WINDOW_W - width) / 2, y, menu[i],
 			selected ? white : ink, menuFont, selected ? ink : white);
 	}
-	const char* guide = "ƒ}ƒEƒX‚Å‘I‘ğ@¶ƒNƒŠƒbƒN‚ÅŒˆ’è";
+	const char* guide = "ãƒã‚¦ã‚¹ã§é¸æŠã€€å·¦ã‚¯ãƒªãƒƒã‚¯ã§æ±ºå®š";
 	width = GetDrawStringWidth(guide, lstrlenA(guide));
 	DrawString((WINDOW_W - width) / 2, 745, guide, ink);
 
