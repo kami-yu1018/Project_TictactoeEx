@@ -10,6 +10,9 @@ private:
 
 public:
 	int nextscene;	//	次のシーンを示す変数（1:タイトル画面、2:ゲーム画面）
+	bool nextGo;	//	次のシーンに移動してよいかどうかのフラグ
+
+	int shade_alpha;	//	アニメーション用変数
 
 	void Init();	//	初期化
 	void Update();	//	更新
