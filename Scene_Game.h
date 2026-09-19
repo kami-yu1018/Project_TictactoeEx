@@ -4,6 +4,8 @@
 class Scene_Game
 {
 public:
+	//	”wŒi—p•Ï”
+	int backgroundImage;
 
 	//@”Õ–Ê‚Ìó‘Ô‚ğ•Û‚·‚é”z—ñ
 	int board[9][9] = { 0 };
