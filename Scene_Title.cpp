@@ -17,7 +17,7 @@ void Scene_Title::Init()
 	check_se = LoadSoundMem("data/se/check.mp3");
 
 	//	•s“§–¾“x‚Í‚O
-	shade_alpha = 0;
+	shade_alpha = 255;
 	nextGo = 0;
 }
 
@@ -90,6 +90,14 @@ void Scene_Title::Update()
 			if (shade_alpha >= 255)
 			{
 				nextscene = destinations[selectedItem];
+			}
+		}
+		else
+		{
+			shade_alpha -= 20;
+			if (shade_alpha < 0)
+			{
+				shade_alpha = 0;
 			}
 		}
 
