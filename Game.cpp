@@ -12,11 +12,19 @@ void Game::Init()
 	//	最初のシーンはタイトルから
 	nowScene = SCENE_TITLE;
 	exitRequested = false;
-	
+
+	//	BGMの読み込み
+	bgm = LoadMusicMem("data/bgm.mp3");
 }
 
 void Game::Update()
 {
+	if (check_bgm == 0)
+	{
+		PlayMusic("data/bgm.mp3", DX_PLAYTYPE_LOOP);
+		check_bgm = 1;
+	}
+
 	switch (nowScene)
 	{
 	case SCENE_TITLE:

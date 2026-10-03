@@ -28,6 +28,9 @@ class Game
 	Scene_Game GameObj;
 	Result ResultObj;
 
+	int bgm = -1;
+	int check_bgm = 0;
+
 public:
 	void Init();
 	void Update();
