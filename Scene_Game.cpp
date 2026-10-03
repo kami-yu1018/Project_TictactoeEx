@@ -301,6 +301,19 @@ int Scene_Game::CheckWin()
 		}
 	}
 
+	// 勝者がいない場合だけ、最終盤面の満盤を引き分けにする。途中の満盤では拡張を続ける。
+	if (board_size == 9)
+	{
+		for (int y = 0; y < board_size; ++y)
+		{
+			for (int x = 0; x < board_size; ++x)
+			{
+				if (draw_player[y][x] == 0) return 0;
+			}
+		}
+		return DRAW;
+	}
+
 	return 0;
 }
 

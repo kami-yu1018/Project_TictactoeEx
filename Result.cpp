@@ -1,42 +1,42 @@
-//	ƒGƒ“ƒfƒBƒ“ƒO‰æ–ÊiŒ‹‰Ê”­•\j
+//	ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°ç”»é¢ï¼ˆçµæœç™ºè¡¨ï¼‰
 
 #include"Result.h"
 #include"main.h"
 
 void Result::Init()
 {
-	//	”wŒi‰æ‘œ‚Ì“Ç‚İ‚İ
-	backgroundImage = LoadGraph("data/background.png");	//	”wŒi
-	resultImage[0] = LoadGraph("data/circle_win.png");	//	Z‚ÌŸ‚¿
-	resultImage[1] = LoadGraph("data/X_win.png");	//	~‚ÌŸ‚¿
-	resultImage[2] = LoadGraph("data/draw.png");	//	ˆø‚«•ª‚¯
+	//	èƒŒæ™¯ç”»åƒã®èª­ã¿è¾¼ã¿
+	backgroundImage = LoadGraph("data/background.png");	//	èƒŒæ™¯
+	resultImage[0] = LoadGraph("data/circle_win.png");	//	ã€‡ã®å‹ã¡
+	resultImage[1] = LoadGraph("data/X_win.png");	//	Ã—ã®å‹ã¡
+	resultImage[2] = LoadGraph("data/draw.png");	//	å¼•ãåˆ†ã‘
 
-	//	ŠÖ”‚Ì‰Šú‰»
+	//	é–¢æ•°ã®åˆæœŸåŒ–
 	nextscene = 0;
 	shade_alpha = 255;
 	nextGo = false;
 
-	//	SE‚Ì“Ç‚İ‚İ
+	//	SEã®èª­ã¿è¾¼ã¿
 	check_se = LoadSoundMem("data/se/check.mp3");
 }
 
 //void Result::Update()
 //{
-//	//	ƒ}ƒEƒXÀ•W‚ğæ“¾
+//	//	ãƒã‚¦ã‚¹åº§æ¨™ã‚’å–å¾—
 //	int MouseX = GetMouseX();
 //	int MouseY = GetMouseY();
 //
-//	//	¶ƒNƒŠƒbƒN‚µ‚½‚Æ‚«
+//	//	å·¦ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ã
 //	if (PushMouseInput(MOUSE_INPUT_LEFT))
 //	{
-//		//	ƒ^ƒCƒgƒ‹‚Ö–ß‚é
+//		//	ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹
 //		if (MouseX >= 100 && MouseX <= 700
 //			&& MouseY >= 400 && MouseY <= 450)
 //		{
 //			nextscene = 1;
 //		}
 //
-//		//	ƒŠƒgƒ‰ƒC
+//		//	ãƒªãƒˆãƒ©ã‚¤
 //		if (MouseX >= 100 && MouseX <= 700
 //			&& MouseY >= 500 && MouseY <= 550)
 //		{
@@ -52,14 +52,14 @@ void Result::Update()
 
 	selectedItem = -1;
 
-	// ƒ^ƒCƒgƒ‹‚Ö–ß‚é
+	// ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹
 	if (MouseX >= 100 && MouseX <= 700 &&
 		MouseY >= 400 && MouseY <= 450)
 	{
 		selectedItem = 0;
 	}
 
-	// ƒŠƒgƒ‰ƒC
+	// ãƒªãƒˆãƒ©ã‚¤
 	if (MouseX >= 100 && MouseX <= 700 &&
 		MouseY >= 500 && MouseY <= 550)
 	{
@@ -89,11 +89,11 @@ void Result::Update()
 		se.se_ring = 0;
 	}
 
-	//	ƒtƒF[ƒhƒCƒ“AƒAƒEƒg
+	//	ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³ã€ã‚¢ã‚¦ãƒˆ
 	if (nextscene > 0)
 	{
 		shade_alpha += 5;
-		//	•s“§–¾“x‚ªÅ‘å‚É‚È‚Á‚½‚çŸ‚ÌƒV[ƒ“‚Ös‚Á‚Ä‚æ‚µ
+		//	ä¸é€æ˜åº¦ãŒæœ€å¤§ã«ãªã£ãŸã‚‰æ¬¡ã®ã‚·ãƒ¼ãƒ³ã¸è¡Œã£ã¦ã‚ˆã—
 		if (shade_alpha >= 255)
 		{
 			nextGo = true;
@@ -111,19 +111,19 @@ void Result::Update()
 
 //void Result::Render(int playresult)
 //{
-//	//	”wŒi‰æ‘œ‚Ì•`‰æ
+//	//	èƒŒæ™¯ç”»åƒã®æç”»
 //	DrawGraph(0, 0, backgroundImage, TRUE);
-//	if(playresult==1)	//	Ÿ‚¿‚Ì
+//	if(playresult==1)	//	å‹ã¡ã®æ™‚
 //	{ 
 //		DrawGraph(150, 100, resultImage[0], TRUE);
 //	}
-//	else if (playresult == 2)	//	•‰‚¯‚Ì
+//	else if (playresult == 2)	//	è² ã‘ã®æ™‚
 //	{
 //		DrawGraph(150, 100, resultImage[1], TRUE);
 //	}
 //
-//	DrawString(100, 400, "ƒ^ƒCƒgƒ‹‚Ö–ß‚é", GetColor(255, 255, 255));
-//	DrawString(100, 500, "ƒŠƒgƒ‰ƒC", GetColor(255, 255, 255));
+//	DrawString(100, 400, "ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹", GetColor(255, 255, 255));
+//	DrawString(100, 500, "ãƒªãƒˆãƒ©ã‚¤", GetColor(255, 255, 255));
 //
 //	DrawFormatString(10, 10, GetColor(255, 255, 255), "%d", nextscene);
 //}
@@ -141,12 +141,16 @@ void Result::Render(int playresult)
 	{
 		DrawGraph(150, 100, resultImage[1], TRUE);
 	}
+	else if (playresult == Scene_Game::DRAW)
+	{
+		// å¼•ãåˆ†ã‘ã§ã‚‚æ—¢å­˜ã®ã‚¿ã‚¤ãƒˆãƒ«ãƒ»ãƒªãƒˆãƒ©ã‚¤ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’ä½¿ç”¨ã™ã‚‹ã€‚
+		DrawString(340, 200, "å¼•ãåˆ†ã‘", GetColor(0, 0, 0));
 	else if (playresult == 3)
 	{
 		DrawGraph(150, 100, resultImage[2], TRUE);
 	}
 	//---------------------------------
-	// ƒ^ƒCƒgƒ‹‚Ö–ß‚é
+	// ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹
 	//---------------------------------
 	if (selectedItem == 0)
 	{
@@ -154,15 +158,15 @@ void Result::Render(int playresult)
 
 		DrawTriangle(70, 410, 70, 440, 90, 425, GetColor(255, 255, 255), TRUE);
 
-		DrawString(120, 410, "ƒ^ƒCƒgƒ‹‚Ö–ß‚é", GetColor(255, 255, 255));
+		DrawString(120, 410, "ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹", GetColor(255, 255, 255));
 	}
 	else
 	{
-		DrawString(120, 410, "ƒ^ƒCƒgƒ‹‚Ö–ß‚é", GetColor(0, 0, 0));
+		DrawString(120, 410, "ã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹", GetColor(0, 0, 0));
 	}
 
 	//---------------------------------
-	// ƒŠƒgƒ‰ƒC
+	// ãƒªãƒˆãƒ©ã‚¤
 	//---------------------------------
 	if (selectedItem == 1)
 	{
@@ -170,11 +174,11 @@ void Result::Render(int playresult)
 
 		DrawTriangle(70, 510, 70, 540, 90, 525, GetColor(255, 255, 255), TRUE);
 
-		DrawString(120, 510, "ƒŠƒgƒ‰ƒC", GetColor(255, 255, 255));
+		DrawString(120, 510, "ãƒªãƒˆãƒ©ã‚¤", GetColor(255, 255, 255));
 	}
 	else
 	{
-		DrawString(120, 510, "ƒŠƒgƒ‰ƒC", GetColor(0, 0, 0));
+		DrawString(120, 510, "ãƒªãƒˆãƒ©ã‚¤", GetColor(0, 0, 0));
 	}
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, shade_alpha);
@@ -185,6 +189,6 @@ void Result::Render(int playresult)
 
 void Result::Exit()
 {
-	//	”wŒi‰æ‘œ‚Ì‰ğ•ú
+	//	èƒŒæ™¯ç”»åƒã®è§£æ”¾
 	DeleteGraph(backgroundImage);
 }
