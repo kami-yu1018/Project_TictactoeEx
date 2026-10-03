@@ -7,8 +7,8 @@ void Result::Init()
 {
 	//	”wŒi‰æ‘œ‚Ì“Ç‚İ‚İ
 	backgroundImage = LoadGraph("data/background.png");	//	”wŒi
-	resultImage[0] = LoadGraph("data/win_text.png");	//	Ÿ‚¿
-	resultImage[1] = LoadGraph("data/lose_text.png");	//	•‰‚¯
+	resultImage[0] = LoadGraph("data/circle_win.png");	//	Z‚ÌŸ‚¿
+	resultImage[1] = LoadGraph("data/X_win.png");	//	~‚ÌŸ‚¿
 
 	//	ŠÖ”‚Ì‰Šú‰»
 	nextscene = 0;

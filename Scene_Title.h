@@ -5,6 +5,9 @@
 class Scene_Title
 {
 private:
+	//	タイトル画像用変数
+	int title_img;
+
 	// DxLib が返す画像・フォントの番号。-1 はまだ読み込んでいない状態。
 	int backgroundImage = -1;
 	int titleFont = -1;
