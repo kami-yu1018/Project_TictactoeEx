@@ -14,6 +14,9 @@ void Result::Init()
 	nextscene = 0;
 	shade_alpha = 255;
 	nextGo = false;
+
+	//	SEの読み込み
+	check_se = LoadSoundMem("data/se/check.mp3");
 }
 
 //void Result::Update()
@@ -67,11 +70,22 @@ void Result::Update()
 		if (selectedItem == 0)
 		{
 			nextscene = 1;
+			if (se.se_ring == 0)
+			{
+				se.PlaySe(check_se);
+				se.se_ring = 1;
+			}
 		}
 		else if (selectedItem == 1)
 		{
 			nextscene = 2;
+			se.PlaySe(check_se);
+			se.se_ring = 1;
 		}
+	}
+	if (!nextGo)
+	{
+		se.se_ring = 0;
 	}
 
 	//	フェードイン、アウト

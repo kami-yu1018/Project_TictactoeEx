@@ -1,6 +1,7 @@
 #pragma once
 
 #include"DxLib.h"
+#include"Sound.h"
 
 class Result
 {
@@ -16,6 +17,10 @@ private:
 	static constexpr int MENU1_BOTTOM = 450;
 	static constexpr int MENU2_TOP = 500;
 	static constexpr int MENU2_BOTTOM = 550;
+
+	//	SE
+	Se se;
+	int check_se;
 
 
 public:
