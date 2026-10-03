@@ -1,5 +1,6 @@
 #pragma once
 #include"DxLib.h"
+#include"Sound.h"
 
 class Scene_Game
 {
@@ -33,6 +34,10 @@ public:
 
 	//　勝者が誰かを判定した数字を入れる用の変数
 	int winner = 0;
+
+	//	SE
+	Se se;
+	int check_se;
 
 private:
 	//　マークを置く処理をする関数
