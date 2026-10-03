@@ -1,3 +1,4 @@
+﻿// UTF-8 BOMでソースを識別し、main.cppの実行文字セットはプロジェクト設定でShift-JISに固定する。
 #include "main.h"
 
 int mouseFrame_left;
@@ -10,6 +11,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//===============================================
 	//	初期化処理
 	//===============================================
+	// タイトルのマルチバイト文字列をShift-JISとして解釈する（Unicode構成では無効）。
+	SetUseCharCodeFormat(DX_CHARCODEFORMAT_SHIFTJIS);
+
 	//	ログの書き出しを無効化
 	SetOutApplicationLogValidFlag(FALSE);
 
