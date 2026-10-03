@@ -128,7 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="main.cpp" />
+    <!-- main.cpp のタイトル文字列を Debug/Release 共通で DxLib の Shift-JIS に合わせる。 -->
+    <ClCompile Include="main.cpp">
+      <AdditionalOptions>%(AdditionalOptions) /execution-charset:.932</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="Scene_Rule.cpp" />
