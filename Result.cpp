@@ -126,6 +126,11 @@ void Result::Render(int playresult)
 	{
 		DrawGraph(150, 100, resultImage[1], TRUE);
 	}
+	else if (playresult == Scene_Game::DRAW)
+	{
+		// 引き分けでも既存のタイトル・リトライメニューを使用する。
+		DrawString(340, 200, "引き分け", GetColor(0, 0, 0));
+	}
 	//---------------------------------
 	// タイトルへ戻る
 	//---------------------------------
