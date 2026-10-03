@@ -1,9 +1,9 @@
 #include "Scene_Game.h"
 
-//@‰Šú‰»ˆ—
+//ã€€åˆæœŸåŒ–å‡¦ç†
 void Scene_Game::Init()
 {
-	//	”wŒi‚Ì“Ç‚İ‚İ
+	//	èƒŒæ™¯ã®èª­ã¿è¾¼ã¿
 	backgroundImage = LoadGraph("data/background.png");
 
 	player_turn = true;
@@ -24,48 +24,48 @@ void Scene_Game::Init()
 	check_se = LoadSoundMem("data/se/poyo.mp3");
 }
 
-//@XVˆ—
+//ã€€æ›´æ–°å‡¦ç†
 void Scene_Game::Update()
 {
-	//@ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ÌÀ•W‚ğæ“¾
+	//ã€€ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®åº§æ¨™ã‚’å–å¾—
 	GetMousePoint(&mouse_pos_x, &mouse_pos_y);
 
-	//@ƒ}ƒEƒX‚Ì“ü—Íó‘Ô‚ğæ“¾
+	//ã€€ãƒã‚¦ã‚¹ã®å…¥åŠ›çŠ¶æ…‹ã‚’å–å¾—
 	mouse_input = GetMouseInput();
 
-	//@”Õ–Ê‚ÌƒTƒCƒY‚ğ§ŒÀ
+	//ã€€ç›¤é¢ã®ã‚µã‚¤ã‚ºã‚’åˆ¶é™
 	if (board_size >= 7)
 	{
-		//@ˆê”Ô‘å‚«‚¢‚Æ‚«‚Í 7~7
+		//ã€€ä¸€ç•ªå¤§ãã„ã¨ãã¯ 7Ã—7
 		board_size = 7;
 	}
 
-	//@”Õ–Ê‚ÌƒTƒCƒY‚ğXV
-	//@Å¬ƒTƒCƒY
+	//ã€€ç›¤é¢ã®ã‚µã‚¤ã‚ºã‚’æ›´æ–°
+	//ã€€æœ€å°ã‚µã‚¤ã‚º
 	if (count < 9)
 	{
-		//@3~3
+		//ã€€3Ã—3
 		board_size = 3;
 	}
-	//@”Õ–Ê‚ª–„‚Ü‚Á‚½‚ç
+	//ã€€ç›¤é¢ãŒåŸ‹ã¾ã£ãŸã‚‰
 	else if (count >= 9 && count < 25)
 	{
-		//@5~5
+		//ã€€5Ã—5
 		board_size = 5;
 	}
-	//@‚Ü‚½”Õ–Ê‚ª–„‚Ü‚Á‚½‚ç
+	//ã€€ã¾ãŸç›¤é¢ãŒåŸ‹ã¾ã£ãŸã‚‰
 	else if (count >= 25 && count < 49)
 	{
-		//@7~7
+		//ã€€7Ã—7
 		board_size = 7;
 	}
 	else if (count >= 49)
 	{
-		//@9~9
+		//ã€€9Ã—9
 		board_size = 9;
 	}
 
-	//@¶ƒNƒŠƒbƒN‚ª‰Ÿ‚³‚ê‚½‚ç
+	//ã€€å·¦ã‚¯ãƒªãƒƒã‚¯ãŒæŠ¼ã•ã‚ŒãŸã‚‰
 	if (mouse_input & MOUSE_INPUT_LEFT && key_state == false)
 	{
 		int board_x;
@@ -73,10 +73,10 @@ void Scene_Game::Update()
 
 		if (GetBoardCell(mouse_pos_x, mouse_pos_y, &board_x, &board_y))
 		{
-			//@ƒ}[ƒN‚ğ’u‚­
+			//ã€€ãƒãƒ¼ã‚¯ã‚’ç½®ã
 			MarkPlace(board_x, board_y);
 
-			//	SE‚ğ–Â‚ç‚·
+			//	SEã‚’é³´ã‚‰ã™
 			if(se.se_ring==0)
 			{
 				se.PlaySe(check_se);
@@ -86,25 +86,25 @@ void Scene_Game::Update()
 	}
 	else
 	{
-		//	SE‚ğ~‚ß‚é
+		//	SEã‚’æ­¢ã‚ã‚‹
 		se.se_ring = 0;
 	}
 
-	//@Ÿ—˜”»’è
+	//ã€€å‹åˆ©åˆ¤å®š
 	winner = CheckWin();
 
 	if (winner == 1)
 	{
-		// ›‚ÌŸ—˜
-		DrawString(340, 800, "Z‚ÌŸ—˜", GetColor(255, 255, 255));
+		// â—‹ã®å‹åˆ©
+		DrawString(340, 800, "ã€‡ã®å‹åˆ©", GetColor(255, 255, 255));
 	}
 	else if (winner == 2)
 	{
-		// ~‚ÌŸ—˜
-		DrawString(340, 800, "~‚ÌŸ—˜", GetColor(255, 255, 255));
+		// Ã—ã®å‹åˆ©
+		DrawString(340, 800, "Ã—ã®å‹åˆ©", GetColor(255, 255, 255));
 	}
 
-	//@ƒ}ƒEƒX‚Ì’·‰Ÿ‚µ“ü—Í‚Ì–h~
+	//ã€€ãƒã‚¦ã‚¹ã®é•·æŠ¼ã—å…¥åŠ›ã®é˜²æ­¢
 	if (mouse_input & MOUSE_INPUT_LEFT)
 	{
 		key_state = true;
@@ -115,13 +115,13 @@ void Scene_Game::Update()
 	}
 }
 
-//@•`‰æˆ—
+//ã€€æç”»å‡¦ç†
 void Scene_Game::Render()
 {
-	//	”wŒi‰æ‘œ‚Ì•`‰æ
+	//	èƒŒæ™¯ç”»åƒã®æç”»
 	DrawGraph(0, 0, backgroundImage,TRUE);
 
-	//@”Õ–Ê‚Ì•`‰æ
+	//ã€€ç›¤é¢ã®æç”»
 	for (int y = 0; y < board_size; ++y)
 	{
 		for (int x = 0; x < board_size; ++x)
@@ -132,119 +132,119 @@ void Scene_Game::Render()
 			int y2 = y1 + (700 / board_size);
 			DrawBox(x1, y1, x2, y2, GetColor(0, 0, 0), FALSE);
 
-			//@”Õ–Ê‚ÌƒZƒ‹‚ÌƒTƒCƒY‚ğŒvZ
+			//ã€€ç›¤é¢ã®ã‚»ãƒ«ã®ã‚µã‚¤ã‚ºã‚’è¨ˆç®—
 			int cell_size = 700 / board_size;
 			int center_x = 50 + cell_size * x + cell_size / 2;
 			int center_y = 100 + cell_size * y + cell_size / 2;
 
-			//@æè‚Ìl‚Ì”Ô‚Å”Õ–Ê‚É‹L†‚ª’u‚©‚ê‚Ä‚¢‚éó‘Ô‚È‚ç
+			//ã€€å…ˆæ‰‹ã®äººã®ç•ªã§ç›¤é¢ã«è¨˜å·ãŒç½®ã‹ã‚Œã¦ã„ã‚‹çŠ¶æ…‹ãªã‚‰
 			if(draw_player[y][x] == 1)
 			{
-				//@Ô‚¢ŠÛZ‚ğ•`‰æ
+				//ã€€èµ¤ã„ä¸¸ã€‡ã‚’æç”»
 				DrawCircle(center_x, center_y, cell_size / 3, GetColor(255, 0, 0), FALSE);
 			}
 			else if (draw_player[y][x] == 2)
 			{
 				int size = cell_size / 3;
-				//@Â‚¢~‚ğ•`‰æ
+				//ã€€é’ã„Ã—ã‚’æç”»
 				DrawLine(center_x - size, center_y - size, center_x + size, center_y + size, GetColor(0, 0, 255));
 				DrawLine(center_x + size, center_y - size, center_x - size, center_y + size, GetColor(0, 0, 255));
 			}
 		}
 	}
 
-	//@ƒvƒŒƒCƒ„[‚Ìƒ^[ƒ“‚ğ‰æ–Ê’†‰›ã‚É•\¦
+	//ã€€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ãƒ¼ãƒ³ã‚’ç”»é¢ä¸­å¤®ä¸Šã«è¡¨ç¤º
 	if(player_turn == true)
 	{
-		DrawFormatString(340, 50, GetColor(0, 0, 0), "Z‚Ìl‚Ìƒ^[ƒ“‚Å‚·");
+		DrawFormatString(340, 50, GetColor(0, 0, 0), "ã€‡ã®äººã®ã‚¿ãƒ¼ãƒ³ã§ã™");
 	}
 	else
 	{
-		DrawFormatString(340, 50, GetColor(0, 0, 0), "~‚Ìl‚Ìƒ^[ƒ“‚Å‚·");
+		DrawFormatString(340, 50, GetColor(0, 0, 0), "Ã—ã®äººã®ã‚¿ãƒ¼ãƒ³ã§ã™");
 	}
 
-	DrawFormatString(150, 840, GetColor(0, 0, 0), "Œ»İ‚Ìƒ}ƒX”F%d~%d", board_size, board_size);
-	DrawFormatString(500, 840, GetColor(0, 0, 0), "‚Pƒ‰ƒCƒ“F‹L†%dŒÂ", win_count);
+	DrawFormatString(150, 840, GetColor(0, 0, 0), "ç¾åœ¨ã®ãƒã‚¹æ•°ï¼š%dÃ—%d", board_size, board_size);
+	DrawFormatString(500, 840, GetColor(0, 0, 0), "ï¼‘ãƒ©ã‚¤ãƒ³ï¼šè¨˜å·%då€‹", win_count);
 }
 
-//@I—¹ˆ—
+//ã€€çµ‚äº†å‡¦ç†
 void Scene_Game::Exit()
 {
 
 }
 
 // --------------------------------------
-// ƒ}[ƒN‚ğ’u‚­ŠÖ”
+// ãƒãƒ¼ã‚¯ã‚’ç½®ãé–¢æ•°
 // --------------------------------------
 bool Scene_Game::MarkPlace(int x, int y)
 {
-	//@‚·‚Å‚É‹L†‚ª’u‚©‚ê‚Ä‚¢‚é‚È‚ç
+	//ã€€ã™ã§ã«è¨˜å·ãŒç½®ã‹ã‚Œã¦ã„ã‚‹ãªã‚‰
 	if (draw_player[y][x] != 0)
 	{
-		//@’u‚¯‚È‚¢
+		//ã€€ç½®ã‘ãªã„
 		return false;
 	}
 
-	//@ŸÒ‚ª‚·‚Å‚ÉŒˆ‚Ü‚Á‚Ä‚¢‚½‚ç
+	//ã€€å‹è€…ãŒã™ã§ã«æ±ºã¾ã£ã¦ã„ãŸã‚‰
 	if (winner != 0)
 	{
-		//@’u‚¯‚È‚¢
+		//ã€€ç½®ã‘ãªã„
 		return false;
 	}
 
-	//@›‚Ìƒ^[ƒ“
+	//ã€€â—‹ã®ã‚¿ãƒ¼ãƒ³
 	if (player_turn == true)
 	{
 		draw_player[y][x] = 1;
 	}
-	//@~‚Ìƒ^[ƒ“
+	//ã€€Ã—ã®ã‚¿ãƒ¼ãƒ³
 	else
 	{
 		draw_player[y][x] = 2;
 	}
 
-	//@’u‚¢‚½”‚ğ‘‚â‚·
+	//ã€€ç½®ã„ãŸæ•°ã‚’å¢—ã‚„ã™
 	count++;
 
-	//@ƒvƒŒƒCƒ„[Œğ‘ã
+	//ã€€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼äº¤ä»£
 	player_turn = !player_turn;
 
 	return true;
 }
 
 // --------------------------------------
-// Ÿ—˜”»’è‚ğ‚·‚éŠÖ”
+// å‹åˆ©åˆ¤å®šã‚’ã™ã‚‹é–¢æ•°
 // --------------------------------------
 int Scene_Game::CheckWin()
 {
-	//@Ÿ—˜‚É•K—v‚È‹L†‚Ì”
+	//ã€€å‹åˆ©ã«å¿…è¦ãªè¨˜å·ã®æ•°
 	win_count = 3;
 
-	//@”Õ–Ê‚ª3~3‚Ì
+	//ã€€ç›¤é¢ãŒ3Ã—3ã®æ™‚
 	if (board_size == 3)
 	{
-		//@Ÿ—˜‚É•K—v‚È‹L†‚Ì”‚Í3
+		//ã€€å‹åˆ©ã«å¿…è¦ãªè¨˜å·ã®æ•°ã¯3
 		win_count = 3;
 	}
-	//@”Õ–Ê‚ª4~4‚Ì
+	//ã€€ç›¤é¢ãŒ4Ã—4ã®æ™‚
 	else if (board_size == 5)
 	{
-		//@4
+		//ã€€4
 		win_count = 4;
 	}
-	//@”Õ–Ê‚ª5~5‚Ì
+	//ã€€ç›¤é¢ãŒ5Ã—5ã®æ™‚
 	else if(board_size == 7)
 	{
-		//@5
+		//ã€€5
 		win_count = 5;
 	}
-	//@”Õ–Ê‚ª9~9‚Ì
+	//ã€€ç›¤é¢ãŒ9Ã—9ã®æ™‚
 	else if (board_size == 9)
 	{
 		win_count = 6;
 	}
 
-	//@”»’è‚·‚é•ûŒü
+	//ã€€åˆ¤å®šã™ã‚‹æ–¹å‘
 	int directions[4][2] =
 	{
 		{1, 0},
@@ -257,31 +257,31 @@ int Scene_Game::CheckWin()
 	{
 		for (int x = 0; x < board_size; x++)
 		{
-			//@‰½‚à‚È‚¢ƒ}ƒX‚Íˆ—‚µ‚È‚¢
+			//ã€€ä½•ã‚‚ãªã„ãƒã‚¹ã¯å‡¦ç†ã—ãªã„
 			if (draw_player[y][x] == 0)	continue;
 
-			// Œ»İ‚Ì‹L†
+			// ç¾åœ¨ã®è¨˜å·
 			int player = draw_player[y][x];
 
-			// 4•ûŒü‚ğ’²‚×‚é
+			// 4æ–¹å‘ã‚’èª¿ã¹ã‚‹
 			for (int d = 0; d < 4; d++)
 			{
 				int line_count = 1;
 
-				// Ÿ‚Ìƒ}ƒX‚ğ’²‚×‚é
+				// æ¬¡ã®ãƒã‚¹ã‚’èª¿ã¹ã‚‹
 				for (int n = 1; n < win_count; n++)
 				{
 					int next_x = x + directions[d][0] * n;
 					int next_y = y + directions[d][1] * n;
 
-					// ”Õ–Ê‚ÌŠO‚È‚çI—¹
+					// ç›¤é¢ã®å¤–ãªã‚‰çµ‚äº†
 					if (next_x < 0 || next_x >= board_size ||
 						next_y < 0 || next_y >= board_size)
 					{
 						break;
 					}
 
-					// “¯‚¶‹L†‚È‚ç˜A‘±”‚ğ‘‚â‚·
+					// åŒã˜è¨˜å·ãªã‚‰é€£ç¶šæ•°ã‚’å¢—ã‚„ã™
 					if (draw_player[next_y][next_x] == player)
 					{
 						line_count++;
@@ -292,7 +292,7 @@ int Scene_Game::CheckWin()
 					}
 				}
 
-				// •K—v‚È”‚ª•À‚ñ‚Å‚¢‚½‚çŸ—˜
+				// å¿…è¦ãªæ•°ãŒä¸¦ã‚“ã§ã„ãŸã‚‰å‹åˆ©
 				if (line_count >= win_count)
 				{
 					return player;
@@ -301,7 +301,7 @@ int Scene_Game::CheckWin()
 		}
 	}
 
-	// ŸÒ‚ª‚¢‚È‚¢ê‡‚¾‚¯AÅI”Õ–Ê‚Ì–”Õ‚ğˆø‚«•ª‚¯‚É‚·‚éB“r’†‚Ì–”Õ‚Å‚ÍŠg’£‚ğ‘±‚¯‚éB
+	// å‹è€…ãŒã„ãªã„å ´åˆã ã‘ã€æœ€çµ‚ç›¤é¢ã®æº€ç›¤ã‚’å¼•ãåˆ†ã‘ã«ã™ã‚‹ã€‚é€”ä¸­ã®æº€ç›¤ã§ã¯æ‹¡å¼µã‚’ç¶šã‘ã‚‹ã€‚
 	if (board_size == 9)
 	{
 		for (int y = 0; y < board_size; ++y)
@@ -311,21 +311,22 @@ int Scene_Game::CheckWin()
 				if (draw_player[y][x] == 0) return 0;
 			}
 		}
-		return DRAW;
+		return 3;
 	}
+
 
 	return 0;
 }
 
 // ----------------------------------------------------
-// ƒJ[ƒ\ƒ‹‚ª”Õ–Ê‚Ì‚Ç‚Ìƒ}ƒX‚É‚ ‚é‚©‚ğæ“¾‚·‚éŠÖ”
+// ã‚«ãƒ¼ã‚½ãƒ«ãŒç›¤é¢ã®ã©ã®ãƒã‚¹ã«ã‚ã‚‹ã‹ã‚’å–å¾—ã™ã‚‹é–¢æ•°
 // ----------------------------------------------------
 bool Scene_Game::GetBoardCell(int mouse_pos_x, int mouse_pos_y, int* board_x, int* board_y)
 {
-	//@”Õ–Ê‚ÌƒZƒ‹‚ÌƒTƒCƒY‚ğŒvZ
+	//ã€€ç›¤é¢ã®ã‚»ãƒ«ã®ã‚µã‚¤ã‚ºã‚’è¨ˆç®—
 	int cell_size = 700 / board_size;
 			
-	//ƒ}ƒEƒX‚ª”Õ–Ê‚Ì”ÍˆÍ‚Ì’†‚É‚ ‚é‚©
+	//ãƒã‚¦ã‚¹ãŒç›¤é¢ã®ç¯„å›²ã®ä¸­ã«ã‚ã‚‹ã‹
 	if (mouse_pos_x < 50 || mouse_pos_x >= 750 || mouse_pos_y < 100 || mouse_pos_y >= 800)
 	{
 		return false;
