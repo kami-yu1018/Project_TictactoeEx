@@ -1,12 +1,13 @@
 #pragma once
 
 #include"DxLib.h"
+#include"Sound.h"
 
 class Result
 {
 private:
 	int backgroundImage; // 背景画像のハンドル
-	int resultImage[2];	// 勝敗画像のハンドル
+	int resultImage[3];	// 勝敗画像のハンドル
 
 	int selectedItem = -1;
 
@@ -16,6 +17,10 @@ private:
 	static constexpr int MENU1_BOTTOM = 450;
 	static constexpr int MENU2_TOP = 500;
 	static constexpr int MENU2_BOTTOM = 550;
+
+	//	SE
+	Se se;
+	int check_se;
 
 
 public:

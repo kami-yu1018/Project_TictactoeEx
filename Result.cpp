@@ -9,11 +9,15 @@ void Result::Init()
 	backgroundImage = LoadGraph("data/background.png");	//	背景
 	resultImage[0] = LoadGraph("data/circle_win.png");	//	〇の勝ち
 	resultImage[1] = LoadGraph("data/X_win.png");	//	×の勝ち
+	resultImage[2] = LoadGraph("data/draw.png");	//	引き分け
 
 	//	関数の初期化
 	nextscene = 0;
 	shade_alpha = 255;
 	nextGo = false;
+
+	//	SEの読み込み
+	check_se = LoadSoundMem("data/se/check.mp3");
 }
 
 //void Result::Update()
@@ -67,11 +71,22 @@ void Result::Update()
 		if (selectedItem == 0)
 		{
 			nextscene = 1;
+			if (se.se_ring == 0)
+			{
+				se.PlaySe(check_se);
+				se.se_ring = 1;
+			}
 		}
 		else if (selectedItem == 1)
 		{
 			nextscene = 2;
+			se.PlaySe(check_se);
+			se.se_ring = 1;
 		}
+	}
+	if (!nextGo)
+	{
+		se.se_ring = 0;
 	}
 
 	//	フェードイン、アウト
@@ -125,6 +140,10 @@ void Result::Render(int playresult)
 	else if (playresult == 2)
 	{
 		DrawGraph(150, 100, resultImage[1], TRUE);
+	}
+	else if (playresult == 3)
+	{
+		DrawGraph(150, 100, resultImage[2], TRUE);
 	}
 	//---------------------------------
 	// タイトルへ戻る
