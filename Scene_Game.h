@@ -5,6 +5,8 @@
 class Scene_Game
 {
 public:
+	// 勝敗結果: 0は継続、1/2は勝者、3は最終盤面での引き分け。
+	static constexpr int DRAW = 3;
 	//	背景用変数
 	int backgroundImage;
 
