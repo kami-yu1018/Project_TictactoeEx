@@ -9,6 +9,8 @@ private:
 	int backgroundImage; // ”wŒi‰æ‘œ‚Ìƒnƒ“ƒhƒ‹
 	int resultImage[3];	// Ÿ”s‰æ‘œ‚Ìƒnƒ“ƒhƒ‹
 
+	int menuFont = -1;
+
 	int selectedItem = -1;
 
 	static constexpr int MENU_LEFT = 100;

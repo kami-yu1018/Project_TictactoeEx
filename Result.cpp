@@ -11,6 +11,8 @@ void Result::Init()
 	resultImage[1] = LoadGraph("data/X_win.png");	//	×の勝ち
 	resultImage[2] = LoadGraph("data/draw.png");	//	引き分け
 
+	menuFont = CreateFontToHandle("メイリオ", 32, 2, DX_FONTTYPE_ANTIALIASING_EDGE);
+
 	//	関数の初期化
 	nextscene = 0;
 	shade_alpha = 255;
@@ -143,12 +145,10 @@ void Result::Render(int playresult)
 	}
 	else if (playresult == Scene_Game::DRAW)
 	{
-		// 引き分けでも既存のタイトル・リトライメニューを使用する。
-		DrawString(340, 200, "引き分け", GetColor(0, 0, 0));
-	else if (playresult == 3)
-	{
 		DrawGraph(150, 100, resultImage[2], TRUE);
 	}
+
+	const char* menu[] = { "タイトルに戻る","リトライ" };
 	//---------------------------------
 	// タイトルへ戻る
 	//---------------------------------
@@ -158,11 +158,11 @@ void Result::Render(int playresult)
 
 		DrawTriangle(70, 410, 70, 440, 90, 425, GetColor(255, 255, 255), TRUE);
 
-		DrawString(120, 410, "タイトルへ戻る", GetColor(255, 255, 255));
+		DrawStringToHandle(120, 410, menu[0], GetColor(255, 255, 255),menuFont);
 	}
 	else
 	{
-		DrawString(120, 410, "タイトルへ戻る", GetColor(0, 0, 0));
+		DrawStringToHandle(120, 410, menu[0], GetColor(0, 0, 0), menuFont);
 	}
 
 	//---------------------------------
@@ -174,11 +174,11 @@ void Result::Render(int playresult)
 
 		DrawTriangle(70, 510, 70, 540, 90, 525, GetColor(255, 255, 255), TRUE);
 
-		DrawString(120, 510, "リトライ", GetColor(255, 255, 255));
+		DrawStringToHandle(120, 510, menu[1], GetColor(255, 255, 255),menuFont);
 	}
 	else
 	{
-		DrawString(120, 510, "リトライ", GetColor(0, 0, 0));
+		DrawStringToHandle(120, 510, menu[1], GetColor(0, 0, 0), menuFont);
 	}
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, shade_alpha);
