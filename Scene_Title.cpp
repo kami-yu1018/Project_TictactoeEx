@@ -5,6 +5,7 @@
 void Scene_Title::Init()
 {
 	Exit();
+	title_img = LoadGraph("data/title.png");
 	backgroundImage = LoadGraph("data/background.png");
 	titleFont = CreateFontToHandle("メイリオ", 48, 3, DX_FONTTYPE_ANTIALIASING_EDGE);
 	menuFont = CreateFontToHandle("メイリオ", 32, 2, DX_FONTTYPE_ANTIALIASING_EDGE);
@@ -114,15 +115,17 @@ void Scene_Title::Render()
 	if (backgroundImage >= 0)
 	{
 		DrawExtendGraph(0, 0, WINDOW_W, WINDOW_H, backgroundImage, FALSE);
+		DrawGraph((WINDOW_W - 500) / 2, 100, title_img, TRUE);
 	}
 	else
 	{
 		DrawBox(0, 0, WINDOW_W, WINDOW_H, GetColor(255, 198, 138), TRUE);
 	}
+	
 
 	const char* title = "○×ゲーム";
 	int width = GetDrawStringWidthToHandle(title, lstrlenA(title), titleFont);
-	DrawStringToHandle((WINDOW_W - width) / 2, 230, title, ink, titleFont, white);
+//	DrawStringToHandle((WINDOW_W - width) / 2, 230, title, ink, titleFont, white);
 
 	const char* menu[] = { "ゲームスタート", "ゲームルール", "終了" };
 	for (int i = 0; i < MENU_COUNT; ++i)
