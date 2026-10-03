@@ -1,3 +1,4 @@
+﻿// UTF-8 BOMを付け、日本語文字列がShift-JISとして誤読されることによるC2001を防ぐ。
 #include "Scene_Game.h"
 
 //　初期化処理
