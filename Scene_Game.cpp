@@ -20,6 +20,8 @@ void Scene_Game::Init()
 	count = 0;
 
 	winner = 0;
+
+	check_se = LoadSoundMem("data/se/poyo.mp3");
 }
 
 //　更新処理
@@ -73,7 +75,19 @@ void Scene_Game::Update()
 		{
 			//　マークを置く
 			MarkPlace(board_x, board_y);
+
+			//	SEを鳴らす
+			if(se.se_ring==0)
+			{
+				se.PlaySe(check_se);
+				se.se_ring = 1;
+			}
 		}
+	}
+	else
+	{
+		//	SEを止める
+		se.se_ring = 0;
 	}
 
 	//　勝利判定
