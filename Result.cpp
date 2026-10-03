@@ -9,6 +9,7 @@ void Result::Init()
 	backgroundImage = LoadGraph("data/background.png");	//	”wŒi
 	resultImage[0] = LoadGraph("data/circle_win.png");	//	Z‚ÌŸ‚¿
 	resultImage[1] = LoadGraph("data/X_win.png");	//	~‚ÌŸ‚¿
+	resultImage[2] = LoadGraph("data/draw.png");	//	ˆø‚«•ª‚¯
 
 	//	ŠÖ”‚Ì‰Šú‰»
 	nextscene = 0;
@@ -139,6 +140,10 @@ void Result::Render(int playresult)
 	else if (playresult == 2)
 	{
 		DrawGraph(150, 100, resultImage[1], TRUE);
+	}
+	else if (playresult == 3)
+	{
+		DrawGraph(150, 100, resultImage[2], TRUE);
 	}
 	//---------------------------------
 	// ƒ^ƒCƒgƒ‹‚Ö–ß‚é

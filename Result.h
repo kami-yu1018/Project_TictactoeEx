@@ -7,7 +7,7 @@ class Result
 {
 private:
 	int backgroundImage; // 背景画像のハンドル
-	int resultImage[2];	// 勝敗画像のハンドル
+	int resultImage[3];	// 勝敗画像のハンドル
 
 	int selectedItem = -1;
 
