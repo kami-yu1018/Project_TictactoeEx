@@ -17,10 +17,17 @@ void Result::Init()
 	//	関数の初期化
 	nextscene = 0;
 	shade_alpha = 255;
+
 	nextGo = false;
 
 	//	SEの読み込み
 	check_se = LoadSoundMem("data/se/check.mp3");
+
+	text_pos_y = 100.0f;
+	move_speed = -0.5f;
+
+	text_alpha = 255;
+	alpha_speed = -2;
 }
 
 //void Result::Update()
@@ -50,6 +57,7 @@ void Result::Init()
 
 void Result::Update()
 {
+	TextAnimation();
 	int MouseX = GetMouseX();
 	int MouseY = GetMouseY();
 
@@ -135,20 +143,20 @@ void Result::Render(int playresult)
 {
 
 	DrawGraph(0, 0, backgroundImage, TRUE);
-
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, text_alpha);
 	if (playresult == 1)
 	{
-		DrawGraph(150, 100, resultImage[0], TRUE);
+		DrawGraph(150, text_pos_y, resultImage[0], TRUE);
 	}
 	else if (playresult == 2)
 	{
-		DrawGraph(150, 100, resultImage[1], TRUE);
+		DrawGraph(150, text_pos_y, resultImage[1], TRUE);
 	}
 	else if (playresult == Scene_Game::DRAW)
 	{
-		DrawGraph(150, 100, resultImage[2], TRUE);
+		DrawGraph(150, text_pos_y, resultImage[2], TRUE);
 	}
-
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	const char* menu[] = { "タイトルに戻る","リトライ" };
 	//---------------------------------
 	// タイトルへ戻る
@@ -192,4 +200,32 @@ void Result::Exit()
 {
 	//	背景画像の解放
 	DeleteGraph(backgroundImage);
+}
+
+void Result::TextAnimation()
+{
+	//	不透明度の変動
+	text_alpha += alpha_speed;
+
+	if (text_alpha < 125)
+	{
+		alpha_speed = 2;
+	}
+
+	if (text_alpha > 255)
+	{
+		alpha_speed = -2;
+	}
+
+	//	座標の移動
+	text_pos_y += move_speed;
+
+	if (text_pos_y < 80.0)
+	{
+		move_speed = 0.5f;
+	}
+	else if (text_pos_y > 120.0f)
+	{
+		move_speed = -0.5f;
+	}
 }
