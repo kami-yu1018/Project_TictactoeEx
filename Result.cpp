@@ -66,6 +66,7 @@ void Result::OnEnter()
 void Result::Update()
 {
 	TextAnimation();
+
 	const bool left = CheckMouseInput(MOUSE_INPUT_LEFT);
 	int MouseX = GetMouseX();
 	int MouseY = GetMouseY();
@@ -130,29 +131,10 @@ void Result::Update()
 	previousLeft = left;
 }
 
-//void Result::Render(int playresult)
-//{
-//	//	背景画像の描画
-//	DrawGraph(0, 0, backgroundImage, TRUE);
-//	if(playresult==1)	//	勝ちの時
-//	{ 
-//		DrawGraph(150, 100, resultImage[0], TRUE);
-//	}
-//	else if (playresult == 2)	//	負けの時
-//	{
-//		DrawGraph(150, 100, resultImage[1], TRUE);
-//	}
-//
-//	DrawString(100, 400, "タイトルへ戻る", GetColor(255, 255, 255));
-//	DrawString(100, 500, "リトライ", GetColor(255, 255, 255));
-//
-//	DrawFormatString(10, 10, GetColor(255, 255, 255), "%d", nextscene);
-//}
-
 void Result::Render(int playresult)
 {
+	DrawGraph(0, 0, backgroundImage, TRUE);	//	背景
 
-	DrawGraph(0, 0, backgroundImage, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, text_alpha);
 	if (playresult == 1)
 	{
@@ -167,6 +149,7 @@ void Result::Render(int playresult)
 		DrawGraph(150, text_pos_y, resultImage[2], TRUE);
 	}
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
 	const char* menu[] = { "タイトルに戻る","リトライ" };
 	//---------------------------------
 	// タイトルへ戻る
@@ -210,6 +193,17 @@ void Result::Exit()
 {
 	//	背景画像の解放
 	DeleteGraph(backgroundImage);
+	if (backgroundImage >= 0) DeleteGraph(backgroundImage);
+	backgroundImage = -1;
+	for (int& image : resultImage)
+	{
+		if (image >= 0) DeleteGraph(image);
+		image = -1;
+	}
+	if (menuFont >= 0) DeleteFontToHandle(menuFont);
+	if (check_se >= 0) DeleteSoundMem(check_se);
+	menuFont = -1;
+	check_se = -1;
 }
 
 void Result::TextAnimation()
@@ -238,15 +232,4 @@ void Result::TextAnimation()
 	{
 		move_speed = -0.5f;
 	}
-	if (backgroundImage >= 0) DeleteGraph(backgroundImage);
-	backgroundImage = -1;
-	for (int& image : resultImage)
-	{
-		if (image >= 0) DeleteGraph(image);
-		image = -1;
-	}
-	if (menuFont >= 0) DeleteFontToHandle(menuFont);
-	if (check_se >= 0) DeleteSoundMem(check_se);
-	menuFont = -1;
-	check_se = -1;
 }
