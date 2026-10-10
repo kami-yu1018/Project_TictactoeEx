@@ -6,6 +6,8 @@
 
 void Result::Init()
 {
+	Exit();
+	se.Reset_SeCheck();
 	//	背景画像の読み込み
 	backgroundImage = LoadGraph("data/background.png");	//	背景
 	resultImage[0] = LoadGraph("data/circle_win.png");	//	〇の勝ち
@@ -191,5 +193,15 @@ void Result::Render(int playresult)
 void Result::Exit()
 {
 	//	背景画像の解放
-	DeleteGraph(backgroundImage);
+	if (backgroundImage >= 0) DeleteGraph(backgroundImage);
+	backgroundImage = -1;
+	for (int& image : resultImage)
+	{
+		if (image >= 0) DeleteGraph(image);
+		image = -1;
+	}
+	if (menuFont >= 0) DeleteFontToHandle(menuFont);
+	if (check_se >= 0) DeleteSoundMem(check_se);
+	menuFont = -1;
+	check_se = -1;
 }

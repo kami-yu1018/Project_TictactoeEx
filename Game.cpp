@@ -3,6 +3,7 @@
 
 void Game::Init()
 {
+	Exit();
 	//	初期化
 	RuleObj.Init();
 	ResultObj.Init();
@@ -138,10 +139,15 @@ void Game::Render()
 
 void Game::Exit()
 {
-	// 初期化した画面のリソースを解放する。未接続の Result は初期化・解放しない。
+	// 全シーンの画像・音声・フォントとBGMを解放する。
 	TitleObj.Exit();
+	GameObj.Exit();
 	RuleObj.Exit();
 	ResultObj.Exit();
+	StopMusic();
+	if (bgm >= 0) DeleteMusicMem(bgm);
+	bgm = -1;
+	check_bgm = 0;
 }
 
 bool Game::IsExitRequested() const

@@ -6,8 +6,8 @@
 class Result
 {
 private:
-	int backgroundImage; // ”wŒi‰æ‘œ‚Ìƒnƒ“ƒhƒ‹
-	int resultImage[3];	// Ÿ”s‰æ‘œ‚Ìƒnƒ“ƒhƒ‹
+	int backgroundImage = -1; // ”wŒi‰æ‘œ‚Ìƒnƒ“ƒhƒ‹
+	int resultImage[3] = { -1, -1, -1 };	// Ÿ”s‰æ‘œ‚Ìƒnƒ“ƒhƒ‹
 
 	int menuFont = -1;
 
@@ -22,7 +22,7 @@ private:
 
 	//	SE
 	Se se;
-	int check_se;
+	int check_se = -1;
 
 
 public:

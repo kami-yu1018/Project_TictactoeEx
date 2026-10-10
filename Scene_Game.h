@@ -8,7 +8,7 @@ public:
 	// 勝敗結果: 0は継続、1/2は勝者、3は最終盤面での引き分け。
 	static constexpr int DRAW = 3;
 	//	背景用変数
-	int backgroundImage;
+	int backgroundImage = -1;
 
 	//　盤面の状態を保持する配列
 	int board[9][9] = { 0 };
@@ -39,7 +39,7 @@ public:
 
 	//	SE
 	Se se;
-	int check_se;
+	int check_se = -1;
 
 private:
 	//　マークを置く処理をする関数
