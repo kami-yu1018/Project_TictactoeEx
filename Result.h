@@ -25,6 +25,11 @@ private:
 	Se se;
 	int check_se = -1;
 
+	float text_pos_y;		//	アニメーションさせるテキストの座標
+	float move_speed = -1;		//	移動スピード
+
+	int text_alpha = 255;		//	タイトル画面の不透明度調整用変数
+	int alpha_speed = -2;		//	不透明度調節速度変更（各最低、最高値到達時に±を変更する）
 
 public:
 	int nextscene;	//	次のシーンを示す変数（1:タイトル画面、2:ゲーム画面）
@@ -37,4 +42,6 @@ public:
 	void Update();	//	更新
 	void Render(int playresult);	//	描画（勝敗によって勝ち負けの画像表示を変えるため引数に勝敗を受け取る）
 	void Exit();	//	終了
+
+	void TextAnimation();
 };

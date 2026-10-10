@@ -167,6 +167,7 @@ void Scene_Title::Exit()
 
 void Scene_Title::TextAnimation()
 {
+	
 	//	不透明度の変動
 	text_alpha += alpha_speed;
 
