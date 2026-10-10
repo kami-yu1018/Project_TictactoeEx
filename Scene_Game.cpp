@@ -74,6 +74,7 @@ void Scene_Game::Update()
 
 		if (GetBoardCell(mouse_pos_x, mouse_pos_y, &board_x, &board_y))
 		{
+
 			//　マークを置く
 			MarkPlace(board_x, board_y);
 
@@ -153,6 +154,8 @@ void Scene_Game::Render()
 			}
 		}
 	}
+
+	DrawMarkPreview();
 
 	//　プレイヤーのターンを画面中央上に表示
 	if(player_turn == true)
@@ -337,4 +340,49 @@ bool Scene_Game::GetBoardCell(int mouse_pos_x, int mouse_pos_y, int* board_x, in
 	*board_y = (mouse_pos_y - 100) / cell_size;
 
 	return true;
+}
+
+// ----------------------------------------------------
+//　カーソルの位置にマークを薄く表示する関数
+// ----------------------------------------------------
+void Scene_Game::DrawMarkPreview()
+{
+	//　ボードの座標
+	int board_x;
+	int board_y;
+
+	if (!GetBoardCell(mouse_pos_x, mouse_pos_y, &board_x, &board_y))
+	{
+		return;
+	}
+
+	if (draw_player[board_y][board_x] != 0)
+	{
+		return;
+	}
+
+	//　セルの大きさ
+	int cell_size = 700 / board_size;
+	//　セルの中心
+	int center_x = 50 + cell_size * board_x + cell_size / 2;
+	int center_y = 100 + cell_size * board_y + cell_size / 2;
+
+	int size = cell_size / 3;
+
+	//　半透明にする
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+
+	if (player_turn == true)
+	{
+		DrawCircle(center_x, center_y, cell_size / 3, GetColor(255, 0, 0), FALSE);
+	}
+	else
+	{
+		//　青い×を描画
+		DrawLine(center_x - size, center_y - size, center_x + size, center_y + size, GetColor(0, 0, 255));
+		DrawLine(center_x + size, center_y - size, center_x - size, center_y + size, GetColor(0, 0, 255));
+	}
+
+	//　不透明に戻す
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

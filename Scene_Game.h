@@ -56,4 +56,6 @@ public:
 
 	//@Ÿ—˜”»’è‚ğ‚·‚éŠÖ”
 	int CheckWin();
+
+	void DrawMarkPreview();
 };
