@@ -151,14 +151,14 @@ void Scene_Game::Render()
 			if(draw_player[y][x] == 1)
 			{
 				//　赤い丸〇を描画
-				DrawCircle(center_x, center_y, cell_size / 3, GetColor(255, 0, 0), FALSE);
+				DrawCircle(center_x, center_y, cell_size / 3, GetColor(255, 0, 0), FALSE, 5);
 			}
 			else if (draw_player[y][x] == 2)
 			{
 				int size = cell_size / 3;
 				//　青い×を描画
-				DrawLine(center_x - size, center_y - size, center_x + size, center_y + size, GetColor(0, 0, 255));
-				DrawLine(center_x + size, center_y - size, center_x - size, center_y + size, GetColor(0, 0, 255));
+				DrawLine(center_x - size, center_y - size, center_x + size, center_y + size, GetColor(0, 0, 255), 5);
+				DrawLine(center_x + size, center_y - size, center_x - size, center_y + size, GetColor(0, 0, 255), 5);
 			}
 		}
 	}
@@ -397,18 +397,23 @@ void Scene_Game::DrawMarkPreview()
 
 	int size = cell_size / 3;
 
+	static int timer = 0;
+	timer++;
+
+	int alpha = (timer / 15) % 2 == 0 ? 50 : 0;
+
 	//　半透明にする
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 
 	if (player_turn == true)
 	{
-		DrawCircle(center_x, center_y, cell_size / 3, GetColor(255, 0, 0), FALSE);
+		DrawCircle(center_x, center_y, cell_size / 3, GetColor(255, 0, 0), FALSE, 5);
 	}
 	else
 	{
 		//　青い×を描画
-		DrawLine(center_x - size, center_y - size, center_x + size, center_y + size, GetColor(0, 0, 255));
-		DrawLine(center_x + size, center_y - size, center_x - size, center_y + size, GetColor(0, 0, 255));
+		DrawLine(center_x - size, center_y - size, center_x + size, center_y + size, GetColor(0, 0, 255), 5);
+		DrawLine(center_x + size, center_y - size, center_x - size, center_y + size, GetColor(0, 0, 255), 5);
 	}
 
 	//　不透明に戻す
