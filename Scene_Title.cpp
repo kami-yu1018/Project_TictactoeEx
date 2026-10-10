@@ -20,10 +20,19 @@ void Scene_Title::Init()
 	//	不透明度は０
 	shade_alpha = 255;
 	nextGo = 0;
+
+	text_alpha = 255;
+	alpha_speed = -2;
+
+	text_pos_y = 100.0f;
+	move_speed = -0.5f;
 }
 
 void Scene_Title::Update()
 {
+	//	タイトルのアニメーション
+	TextAnimation();
+
 	// 既存のマウス入力関数を利用する。現在と前回の状態で押した瞬間を判定する。
 	const int mouseX = GetMouseX();
 	const int mouseY = GetMouseY();
@@ -45,7 +54,6 @@ void Scene_Title::Update()
 					selectedItem = i;
 					break;
 				}
-
 			}
 		}
 
@@ -63,16 +71,6 @@ void Scene_Title::Update()
 				se.PlaySe(check_se);
 				se.se_ring = 1;
 			}
-			/*if(shade_alpha>=255)
-			{
-				const NextScene destinations[] = { GAME, RULE, QUIT };
-				nextscene = destinations[selectedItem];
-				if (se.se_ring == 0)
-				{
-					se.PlaySe(check_se);
-					se.se_ring = 1;
-				}
-			}*/
 		}
 		else
 		{
@@ -101,7 +99,6 @@ void Scene_Title::Update()
 				shade_alpha = 0;
 			}
 		}
-
 	}
 
 	// 今回の押下状態を保存し、次フレームの長押し判定に使う。
@@ -115,7 +112,9 @@ void Scene_Title::Render()
 	if (backgroundImage >= 0)
 	{
 		DrawExtendGraph(0, 0, WINDOW_W, WINDOW_H, backgroundImage, FALSE);
-		DrawGraph((WINDOW_W - 500) / 2, 100, title_img, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, text_alpha);
+		DrawGraphF((WINDOW_W - 500) / 2, text_pos_y, title_img, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 	else
 	{
@@ -159,4 +158,32 @@ void Scene_Title::Exit()
 	backgroundImage = -1;
 	titleFont = -1;
 	menuFont = -1;
+}
+
+void Scene_Title::TextAnimation()
+{
+	//	不透明度の変動
+	text_alpha += alpha_speed;
+
+	if (text_alpha < 125)
+	{
+		alpha_speed = 2;
+	}
+
+	if (text_alpha > 255)
+	{
+		alpha_speed = -2;
+	}
+
+	//	座標の移動
+	text_pos_y += move_speed;
+
+	if (text_pos_y < 80.0)
+	{
+		move_speed = 0.5f;
+	}
+	else if (text_pos_y > 120.0f)
+	{
+		move_speed = -0.5f;
+	}
 }

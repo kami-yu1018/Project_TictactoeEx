@@ -36,6 +36,12 @@ private:
 	int shade_alpha;	//	フェードアウト用画像の不透明度
 	bool nextGo;		//	次のシーンに遷移するかどうか
 
+	int text_alpha = 255;		//	タイトル画面の不透明度調整用変数
+	int alpha_speed = -2;		//	不透明度調節速度変更（各最低、最高値到達時に±を変更する）
+
+	float text_pos_y;		//	アニメーションさせるテキストの座標
+	float move_speed=	-1;		//	移動スピード
+
 public:
 	// Game に渡す遷移要求。タイトル自身は画面の切り替えや終了を実行しない。
 	enum NextScene
@@ -51,4 +57,6 @@ public:
 	void Update(); // マウス位置と左クリックから選択項目・遷移要求を更新する。
 	void Render(); // 背景、タイトル、メニュー、操作案内を描画する。
 	void Exit();   // このクラスが作った画像・フォントを解放する。
+
+	void TextAnimation();		//	テキストのアニメーション関数（今回はタイトルに適用）
 };
