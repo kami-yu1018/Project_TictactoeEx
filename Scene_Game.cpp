@@ -4,6 +4,8 @@
 //　初期化処理
 void Scene_Game::Init()
 {
+	Exit();
+	se.Reset_SeCheck();
 	//	背景の読み込み
 	backgroundImage = LoadGraph("data/background.png");
 
@@ -23,6 +25,12 @@ void Scene_Game::Init()
 	winner = 0;
 
 	check_se = LoadSoundMem("data/se/poyo.mp3");
+	OnEnter();
+}
+
+void Scene_Game::OnEnter()
+{
+	key_state = (GetMouseInput() & MOUSE_INPUT_LEFT) != 0;
 }
 
 //　更新処理
@@ -74,6 +82,7 @@ void Scene_Game::Update()
 
 		if (GetBoardCell(mouse_pos_x, mouse_pos_y, &board_x, &board_y))
 		{
+
 			//　マークを置く
 			MarkPlace(board_x, board_y);
 
@@ -154,6 +163,8 @@ void Scene_Game::Render()
 		}
 	}
 
+	DrawMarkPreview();
+
 	//　プレイヤーのターンを画面中央上に表示
 	if(player_turn == true)
 	{
@@ -171,7 +182,10 @@ void Scene_Game::Render()
 //　終了処理
 void Scene_Game::Exit()
 {
-
+	if (backgroundImage >= 0) DeleteGraph(backgroundImage);
+	if (check_se >= 0) DeleteSoundMem(check_se);
+	backgroundImage = -1;
+	check_se = -1;
 }
 
 // --------------------------------------
@@ -314,8 +328,6 @@ int Scene_Game::CheckWin()
 		}
 		return 3;
 	}
-
-
 	return 0;
 }
 
@@ -324,8 +336,18 @@ int Scene_Game::CheckWin()
 // ----------------------------------------------------
 bool Scene_Game::GetBoardCell(int mouse_pos_x, int mouse_pos_y, int* board_x, int* board_y)
 {
-	//　盤面のセルのサイズを計算
-	int cell_size = 700 / board_size;
+	const int BOARD_LEFT = 50;
+	const int BOARD_TOP = 100;
+
+	const int BOARD_SIZE = 700;
+
+	if (mouse_pos_x < BOARD_LEFT ||
+		mouse_pos_x >= BOARD_LEFT + BOARD_SIZE ||
+		mouse_pos_y < BOARD_TOP ||
+		mouse_pos_y >= BOARD_TOP + BOARD_SIZE)
+	{
+		return false;
+	}
 			
 	//マウスが盤面の範囲の中にあるか
 	if (mouse_pos_x < 50 || mouse_pos_x >= 750 || mouse_pos_y < 100 || mouse_pos_y >= 800)
@@ -333,8 +355,62 @@ bool Scene_Game::GetBoardCell(int mouse_pos_x, int mouse_pos_y, int* board_x, in
 		return false;
 	}
 
-	*board_x = (mouse_pos_x - 50) / cell_size;
-	*board_y = (mouse_pos_y - 100) / cell_size;
+	*board_x = (mouse_pos_x - 50) * board_size / BOARD_SIZE;
+	*board_y = (mouse_pos_y - 100) * board_size / BOARD_SIZE;
+
+	// 配列の範囲外を防ぐ
+	if (*board_x < 0 || *board_x >= board_size ||
+		*board_y < 0 || *board_y >= board_size)
+	{
+		return false;
+	}
 
 	return true;
+}
+
+// ----------------------------------------------------
+//　カーソルの位置にマークを薄く表示する関数
+// ----------------------------------------------------
+void Scene_Game::DrawMarkPreview()
+{
+	//　ボードの座標
+	int board_x;
+	int board_y;
+
+	//　カーソルがセルになかったら表示しない
+	if (!GetBoardCell(mouse_pos_x, mouse_pos_y, &board_x, &board_y))
+	{
+		return;
+	}
+
+	//　すでに置かれているところには表示しない
+	if (draw_player[board_y][board_x] != 0)
+	{
+		return;
+	}
+
+	//　セルの大きさ
+	int cell_size = 700 / board_size;
+	//　セルの中心
+	int center_x = 50 + cell_size * board_x + cell_size / 2;
+	int center_y = 100 + cell_size * board_y + cell_size / 2;
+
+	int size = cell_size / 3;
+
+	//　半透明にする
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+
+	if (player_turn == true)
+	{
+		DrawCircle(center_x, center_y, cell_size / 3, GetColor(255, 0, 0), FALSE);
+	}
+	else
+	{
+		//　青い×を描画
+		DrawLine(center_x - size, center_y - size, center_x + size, center_y + size, GetColor(0, 0, 255));
+		DrawLine(center_x + size, center_y - size, center_x - size, center_y + size, GetColor(0, 0, 255));
+	}
+
+	//　不透明に戻す
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

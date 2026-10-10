@@ -6,7 +6,7 @@ class Scene_Title
 {
 private:
 	//	タイトル画像用変数
-	int title_img;
+	int title_img = -1;
 
 	// DxLib が返す画像・フォントの番号。-1 はまだ読み込んでいない状態。
 	int backgroundImage = -1;
@@ -30,7 +30,7 @@ private:
 
 	//	SE
 	Se se;
-	int check_se;
+	int check_se = -1;
 
 	//	アニメーション用
 	int shade_alpha;	//	フェードアウト用画像の不透明度

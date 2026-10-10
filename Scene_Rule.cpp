@@ -9,6 +9,8 @@ Scene_Rule::Scene_Rule()
 
 void Scene_Rule::Init()
 {
+	Exit();
+	se.Reset_SeCheck();
 	//	画像読み込み
 	ruleImage = LoadGraph("data/Rule_image.png");
 	backImage = LoadGraph("data/back_img.png");
@@ -88,7 +90,12 @@ void Scene_Rule::Render()
 
 void Scene_Rule::Exit()
 {
-	DeleteGraph(ruleImage);
+	if (ruleImage >= 0) DeleteGraph(ruleImage);
+	if (backImage >= 0) DeleteGraph(backImage);
+	if (back_se >= 0) DeleteSoundMem(back_se);
+	ruleImage = -1;
+	backImage = -1;
+	back_se = -1;
 }
 
 void Scene_Rule::Animation()

@@ -4,7 +4,7 @@
 class Se
 {
 public:
-	int se_ring;
+	int se_ring = 0;
 
 	void PlaySe(int se);
 	void Reset_SeCheck();

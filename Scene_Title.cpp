@@ -5,6 +5,7 @@
 void Scene_Title::Init()
 {
 	Exit();
+	se.Reset_SeCheck();
 	title_img = LoadGraph("data/title.png");
 	backgroundImage = LoadGraph("data/background.png");
 	titleFont = CreateFontToHandle("メイリオ", 48, 3, DX_FONTTYPE_ANTIALIASING_EDGE);
@@ -152,6 +153,10 @@ void Scene_Title::Render()
 
 void Scene_Title::Exit()
 {
+	if (title_img >= 0) DeleteGraph(title_img);
+	if (check_se >= 0) DeleteSoundMem(check_se);
+	title_img = -1;
+	check_se = -1;
 	if (backgroundImage >= 0) DeleteGraph(backgroundImage);
 	if (titleFont >= 0) DeleteFontToHandle(titleFont);
 	if (menuFont >= 0) DeleteFontToHandle(menuFont);
