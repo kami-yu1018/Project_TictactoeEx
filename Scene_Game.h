@@ -25,7 +25,7 @@ public:
 	int mouse_pos_y;
 
 	//　マウスの入力状態
-	bool mouse_input = false;
+	int mouse_input = 0;
 	bool key_state = false;
 
 	//　記号を置いた数をカウント
@@ -50,6 +50,7 @@ private:
 public:
 
 	void Init();
+	void OnEnter(); // Ignore the click held when this scene becomes active.
 	void Update();
 	void Render();
 	void Exit();

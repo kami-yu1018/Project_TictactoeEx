@@ -23,6 +23,12 @@ void Result::Init()
 
 	//	SEの読み込み
 	check_se = LoadSoundMem("data/se/check.mp3");
+	OnEnter();
+}
+
+void Result::OnEnter()
+{
+	previousLeft = CheckMouseInput(MOUSE_INPUT_LEFT);
 }
 
 //void Result::Update()
@@ -52,6 +58,7 @@ void Result::Init()
 
 void Result::Update()
 {
+	const bool left = CheckMouseInput(MOUSE_INPUT_LEFT);
 	int MouseX = GetMouseX();
 	int MouseY = GetMouseY();
 
@@ -71,7 +78,7 @@ void Result::Update()
 		selectedItem = 1;
 	}
 
-	if (PushMouseInput(MOUSE_INPUT_LEFT))
+	if (nextscene == 0 && left && !previousLeft)
 	{
 		if (selectedItem == 0)
 		{
@@ -112,6 +119,7 @@ void Result::Update()
 			shade_alpha = 0;
 		}
 	}
+	previousLeft = left;
 }
 
 //void Result::Render(int playresult)

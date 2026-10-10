@@ -25,6 +25,12 @@ void Scene_Game::Init()
 	winner = 0;
 
 	check_se = LoadSoundMem("data/se/poyo.mp3");
+	OnEnter();
+}
+
+void Scene_Game::OnEnter()
+{
+	key_state = (GetMouseInput() & MOUSE_INPUT_LEFT) != 0;
 }
 
 //　更新処理

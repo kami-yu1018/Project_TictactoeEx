@@ -12,6 +12,7 @@ private:
 	int menuFont = -1;
 
 	int selectedItem = -1;
+	bool previousLeft = false;
 
 	static constexpr int MENU_LEFT = 100;
 	static constexpr int MENU_RIGHT = 700;
@@ -31,6 +32,7 @@ public:
 
 	int shade_alpha;	//	アニメーション用変数
 
+	void OnEnter(); // Ignore the click held when this scene becomes active.
 	void Init();	//	初期化
 	void Update();	//	更新
 	void Render(int playresult);	//	描画（勝敗によって勝ち負けの画像表示を変えるため引数に勝敗を受け取る）

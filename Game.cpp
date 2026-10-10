@@ -34,6 +34,7 @@ void Game::Update()
 		switch (TitleObj.nextscene)
 		{
 		case Scene_Title::GAME:
+			GameObj.OnEnter();
 			nowScene = SCENE_GAME;
 			break;
 		case Scene_Title::RULE:
@@ -55,6 +56,7 @@ void Game::Update()
 		gameResult = GameObj.CheckWin();
 		if (gameResult > 0)
 		{
+			ResultObj.OnEnter();
 			nowScene = SCENE_RESULT;
 		}
 		break;
@@ -72,6 +74,7 @@ void Game::Update()
 				TitleObj.Init();
 				break;
 			case 2:			//	前のシーンがゲーム画面の時
+				GameObj.OnEnter();
 				nowScene = SCENE_GAME;
 				break;
 			}
