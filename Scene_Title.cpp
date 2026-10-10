@@ -73,7 +73,7 @@ void Scene_Title::Update()
 				se.se_ring = 1;
 			}
 		}
-		else
+		else	//	SEを鳴らさない
 		{
 			if(!nextGo)
 			{

@@ -43,17 +43,20 @@ void Scene_Rule::Update()
 	{
 //		scene_back_frag = true;
 		nextGo = true;
-		
+		//	SEがなっていなければ鳴らす
 		if (se.se_ring == 0)
 		{
 			se.PlaySe(back_se);
+			se.se_ring = 1;
 		}
 	}
 	else
 	{
+		//	それ以外の場合はSEを鳴らさない
 		se.se_ring = 0;
 	}
 
+	//	次のシーンに移る際に画面をフェード暗転させる
 	if (nextGo)
 	{
 		shade_alpha += 5;
@@ -64,6 +67,7 @@ void Scene_Rule::Update()
 
 		}
 	}
+	//	次のシーンにいかないとき（主にシーン始まり）の時はフェード明転させる
 	else
 	{
 		shade_alpha -= 20;
@@ -77,12 +81,14 @@ void Scene_Rule::Update()
 
 void Scene_Rule::Render()
 {
-	DrawGraph(0, 0, ruleImage, TRUE);
+	DrawGraph(0, 0, ruleImage, TRUE);	//	ルール画像
+	//	戻るボタン
 	if(graphSwithc)
 	{
 		DrawGraph(20, 20, backImage, TRUE);
 	}
 
+	//	暗転
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, shade_alpha);
 	DrawBox(0, 0, WINDOW_W, WINDOW_H, GetColor(0, 0, 0), TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -90,6 +96,7 @@ void Scene_Rule::Render()
 
 void Scene_Rule::Exit()
 {
+	//	解放
 	if (ruleImage >= 0) DeleteGraph(ruleImage);
 	if (backImage >= 0) DeleteGraph(backImage);
 	if (back_se >= 0) DeleteSoundMem(back_se);
@@ -98,8 +105,10 @@ void Scene_Rule::Exit()
 	back_se = -1;
 }
 
+//	アニメーション
 void Scene_Rule::Animation()
 {
+	//	カウントによって戻るボタンの表示非表示を切り替える
 	count--;
 	if (count < 0)
 	{

@@ -14,13 +14,6 @@ private:
 	int selectedItem = -1;
 	bool previousLeft = false;
 
-	static constexpr int MENU_LEFT = 100;
-	static constexpr int MENU_RIGHT = 700;
-	static constexpr int MENU1_TOP = 400;
-	static constexpr int MENU1_BOTTOM = 450;
-	static constexpr int MENU2_TOP = 500;
-	static constexpr int MENU2_BOTTOM = 550;
-
 	//	SE
 	Se se;
 	int check_se = -1;
@@ -43,5 +36,5 @@ public:
 	void Render(int playresult);	//	描画（勝敗によって勝ち負けの画像表示を変えるため引数に勝敗を受け取る）
 	void Exit();	//	終了
 
-	void TextAnimation();
+	void TextAnimation();	//	アニメーション
 };

@@ -28,7 +28,7 @@ void Game::Update()
 
 	switch (nowScene)
 	{
-	case SCENE_TITLE:
+	case SCENE_TITLE:	//	タイトル画面
 		TitleObj.Update();
 		// タイトルは要求だけを通知し、実際の切り替えは Game が担当する。
 		switch (TitleObj.nextscene)
@@ -51,9 +51,9 @@ void Game::Update()
 		}
 		break;
 
-	case SCENE_GAME:
+	case SCENE_GAME:	//	ゲーム画面
 		GameObj.Update();
-		gameResult = GameObj.CheckWin();
+		gameResult = GameObj.CheckWin();	//	勝敗の決定とリザルトに渡すために結果を変数に入れる
 		if (gameResult > 0)
 		{
 			ResultObj.OnEnter();
@@ -61,11 +61,12 @@ void Game::Update()
 		}
 		break;
 
-	case SCENE_RULE:
+	case SCENE_RULE:	//	ルール画面
 		RuleObj.Update();
 
 		if (RuleObj.scene_back_frag)
 		{
+			//	前のシーンを調べる
 			switch (backScene)
 			{
 			case 1:			//	前のシーンがタイトルの時
@@ -81,7 +82,7 @@ void Game::Update()
 		}
 		break;
 
-	case SCENE_RESULT:
+	case SCENE_RESULT:	//	リザルト画面
 		ResultObj.Update();
 		if(ResultObj.nextGo)
 		{
@@ -122,20 +123,20 @@ void Game::Render()
 {
 	switch (nowScene)
 	{
-	case SCENE_TITLE:
+	case SCENE_TITLE:	//	タイトル画面
 		TitleObj.Render();
 		break;
 
-	case SCENE_GAME:
+	case SCENE_GAME:	//	ゲーム画面
 		GameObj.Render();
 		break;
 
-	case SCENE_RULE:
+	case SCENE_RULE:	//	ルール画面
 		RuleObj.Render();
 		break;
 
-	case SCENE_RESULT:
-		ResultObj.Render(gameResult);
+	case SCENE_RESULT:	//	リザルト画面
+		ResultObj.Render(gameResult);	//	勝敗を引数に入れる（これによって表示するテキストを変える）
 		break;
 	}
 }

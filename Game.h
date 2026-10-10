@@ -8,6 +8,7 @@
 
 class Game
 {
+	//	シーン指定用定数
 	enum Scene
 	{
 		SCENE_TITLE,

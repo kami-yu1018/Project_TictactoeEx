@@ -38,31 +38,6 @@ void Result::OnEnter()
 	previousLeft = CheckMouseInput(MOUSE_INPUT_LEFT);
 }
 
-//void Result::Update()
-//{
-//	//	マウス座標を取得
-//	int MouseX = GetMouseX();
-//	int MouseY = GetMouseY();
-//
-//	//	左クリックしたとき
-//	if (PushMouseInput(MOUSE_INPUT_LEFT))
-//	{
-//		//	タイトルへ戻る
-//		if (MouseX >= 100 && MouseX <= 700
-//			&& MouseY >= 400 && MouseY <= 450)
-//		{
-//			nextscene = 1;
-//		}
-//
-//		//	リトライ
-//		if (MouseX >= 100 && MouseX <= 700
-//			&& MouseY >= 500 && MouseY <= 550)
-//		{
-//			nextscene = 2;
-//		}
-//	}
-//}
-
 void Result::Update()
 {
 	TextAnimation();
