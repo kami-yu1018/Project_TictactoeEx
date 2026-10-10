@@ -317,8 +317,6 @@ int Scene_Game::CheckWin()
 		}
 		return 3;
 	}
-
-
 	return 0;
 }
 
@@ -351,11 +349,13 @@ void Scene_Game::DrawMarkPreview()
 	int board_x;
 	int board_y;
 
+	//　カーソルがセルになかったら表示しない
 	if (!GetBoardCell(mouse_pos_x, mouse_pos_y, &board_x, &board_y))
 	{
 		return;
 	}
 
+	//　すでに置かれているところには表示しない
 	if (draw_player[board_y][board_x] != 0)
 	{
 		return;
