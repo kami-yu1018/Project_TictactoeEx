@@ -15,6 +15,10 @@ class Scene_Rule
 	int shade_alpha;	//	フェードアウト用
 	bool nextGo;		//	次のシーンに進むかどうかのフラグ
 
+	//	アニメーション用
+	int count = 30;	//	カウント
+	bool graphSwithc = true;	//	グラフィックの表示非表示を切り替えるスイッチ
+
 public:
 	bool scene_back_frag = 0;	//	戻るボタンが押されたかどうかのフラグ
 
@@ -24,4 +28,6 @@ public:
 	void Update();	//	更新
 	void Render();	//	描画
 	void Exit();	//	終了
+
+	void Animation();	//	アニメーション用関数
 };
