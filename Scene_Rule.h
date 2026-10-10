@@ -10,7 +10,7 @@ class Scene_Rule
 	int backImage; // 戻るボタンのハンドル
 
 	Se se;
-	int back_se;	//	SE
+	int back_se = -1;	//	SE
 
 	int shade_alpha;	//	フェードアウト用
 	bool nextGo;		//	次のシーンに進むかどうかのフラグ

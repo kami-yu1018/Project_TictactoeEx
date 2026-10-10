@@ -39,10 +39,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	Game game_obj;
-	Scene_Game scene_game_obj;
 
 	game_obj.Init();
-	scene_game_obj.Init();
 
 	//===============================================
 	//	ゲームループ

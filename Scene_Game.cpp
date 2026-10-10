@@ -4,6 +4,8 @@
 //　初期化処理
 void Scene_Game::Init()
 {
+	Exit();
+	se.Reset_SeCheck();
 	//	背景の読み込み
 	backgroundImage = LoadGraph("data/background.png");
 
@@ -23,6 +25,12 @@ void Scene_Game::Init()
 	winner = 0;
 
 	check_se = LoadSoundMem("data/se/poyo.mp3");
+	OnEnter();
+}
+
+void Scene_Game::OnEnter()
+{
+	key_state = (GetMouseInput() & MOUSE_INPUT_LEFT) != 0;
 }
 
 //　更新処理
@@ -174,7 +182,10 @@ void Scene_Game::Render()
 //　終了処理
 void Scene_Game::Exit()
 {
-
+	if (backgroundImage >= 0) DeleteGraph(backgroundImage);
+	if (check_se >= 0) DeleteSoundMem(check_se);
+	backgroundImage = -1;
+	check_se = -1;
 }
 
 // --------------------------------------

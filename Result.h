@@ -6,12 +6,13 @@
 class Result
 {
 private:
-	int backgroundImage; // 背景画像のハンドル
-	int resultImage[3];	// 勝敗画像のハンドル
+	int backgroundImage = -1; // 背景画像のハンドル
+	int resultImage[3] = { -1, -1, -1 };	// 勝敗画像のハンドル
 
 	int menuFont = -1;
 
 	int selectedItem = -1;
+	bool previousLeft = false;
 
 	static constexpr int MENU_LEFT = 100;
 	static constexpr int MENU_RIGHT = 700;
@@ -22,7 +23,7 @@ private:
 
 	//	SE
 	Se se;
-	int check_se;
+	int check_se = -1;
 
 
 public:
@@ -31,6 +32,7 @@ public:
 
 	int shade_alpha;	//	アニメーション用変数
 
+	void OnEnter(); // Ignore the click held when this scene becomes active.
 	void Init();	//	初期化
 	void Update();	//	更新
 	void Render(int playresult);	//	描画（勝敗によって勝ち負けの画像表示を変えるため引数に勝敗を受け取る）
