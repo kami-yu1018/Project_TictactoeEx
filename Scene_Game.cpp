@@ -336,8 +336,18 @@ int Scene_Game::CheckWin()
 // ----------------------------------------------------
 bool Scene_Game::GetBoardCell(int mouse_pos_x, int mouse_pos_y, int* board_x, int* board_y)
 {
-	//　盤面のセルのサイズを計算
-	int cell_size = 700 / board_size;
+	const int BOARD_LEFT = 50;
+	const int BOARD_TOP = 100;
+
+	const int BOARD_SIZE = 700;
+
+	if (mouse_pos_x < BOARD_LEFT ||
+		mouse_pos_x >= BOARD_LEFT + BOARD_SIZE ||
+		mouse_pos_y < BOARD_TOP ||
+		mouse_pos_y >= BOARD_TOP + BOARD_SIZE)
+	{
+		return false;
+	}
 			
 	//マウスが盤面の範囲の中にあるか
 	if (mouse_pos_x < 50 || mouse_pos_x >= 750 || mouse_pos_y < 100 || mouse_pos_y >= 800)
@@ -345,8 +355,15 @@ bool Scene_Game::GetBoardCell(int mouse_pos_x, int mouse_pos_y, int* board_x, in
 		return false;
 	}
 
-	*board_x = (mouse_pos_x - 50) / cell_size;
-	*board_y = (mouse_pos_y - 100) / cell_size;
+	*board_x = (mouse_pos_x - 50) * board_size / BOARD_SIZE;
+	*board_y = (mouse_pos_y - 100) * board_size / BOARD_SIZE;
+
+	// 配列の範囲外を防ぐ
+	if (*board_x < 0 || *board_x >= board_size ||
+		*board_y < 0 || *board_y >= board_size)
+	{
+		return false;
+	}
 
 	return true;
 }
