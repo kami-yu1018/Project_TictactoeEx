@@ -20,10 +20,16 @@ void Scene_Rule::Init()
 	
 	shade_alpha = 254;
 	nextGo = false;
+
+	count = 30;
+	graphSwithc = true;
 }
 
 void Scene_Rule::Update()
 {
+	//	戻るボタンのアニメーション
+	Animation();
+
 	//	戻るボタンが押されたらシーンを戻す
 	//	マウス座標を取得
 	int mosueX = GetMouseX();
@@ -70,7 +76,10 @@ void Scene_Rule::Update()
 void Scene_Rule::Render()
 {
 	DrawGraph(0, 0, ruleImage, TRUE);
-	DrawGraph(20, 20, backImage, TRUE);
+	if(graphSwithc)
+	{
+		DrawGraph(20, 20, backImage, TRUE);
+	}
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, shade_alpha);
 	DrawBox(0, 0, WINDOW_W, WINDOW_H, GetColor(0, 0, 0), TRUE);
@@ -82,3 +91,20 @@ void Scene_Rule::Exit()
 	DeleteGraph(ruleImage);
 }
 
+void Scene_Rule::Animation()
+{
+	count--;
+	if (count < 0)
+	{
+		if (graphSwithc == true)
+		{
+			graphSwithc = false;
+			count = 30;
+		}
+		else
+		{
+			graphSwithc = true;
+			count = 30;
+		}
+	}
+}
